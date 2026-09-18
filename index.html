@@ -1,0 +1,1908 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>La guía de la bici</title>
+<meta name="description" content="Guía de compra de bici para Blanca y Axel. Qué mirar, qué da igual y dónde está el dinero bien gastado.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..900;1,9..144,400..700&family=Karla:ital,wght@0,300..800;1,300..700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   TOKENS
+   ============================================================ */
+:root{
+  --paper:#FAF6F0;
+  --paper-2:#F2EBE1;
+  --paper-3:#E8DFD1;
+  --ink:#1F1B16;
+  --ink-2:#4A4238;
+  --ink-3:#7A6F60;
+  --rule:#D9CEBC;
+
+  --accent:#C1613A;        /* terracota — titulares, bordes, acentos grandes */
+  --accent-ink:#9A4526;    /* variante oscura — texto pequeño sobre papel (AA) */
+  --accent-wash:#F6E7DE;
+
+  --olive:#5A6650;
+  --olive-ink:#44503C;
+  --olive-wash:#E7EBE2;
+
+  --good:#4F6B45;
+  --warn:#9A6B1E;
+  --bad:#A33A2B;
+
+  --shadow:0 1px 2px rgba(31,27,22,.06), 0 8px 24px -12px rgba(31,27,22,.18);
+
+  --sans:"Karla", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --serif:"Fraunces", Georgia, "Times New Roman", serif;
+
+  --rail:300px;
+  --gutter:clamp(18px, 3.2vw, 56px);
+
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#17120E;
+    --paper-2:#1F1913;
+    --paper-3:#2A221A;
+    --ink:#F0E7DA;
+    --ink-2:#C9BCA9;
+    --ink-3:#9A8B77;
+    --rule:#3A3025;
+
+    --accent:#E08055;
+    --accent-ink:#F0A17B;
+    --accent-wash:#331F14;
+
+    --olive:#9BAA8D;
+    --olive-ink:#AFBCA2;
+    --olive-wash:#1E241A;
+
+    --good:#8FB27F;
+    --warn:#D8A64E;
+    --bad:#E08272;
+
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -12px rgba(0,0,0,.6);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#17120E;
+  --paper-2:#1F1913;
+  --paper-3:#2A221A;
+  --ink:#F0E7DA;
+  --ink-2:#C9BCA9;
+  --ink-3:#9A8B77;
+  --rule:#3A3025;
+
+  --accent:#E08055;
+  --accent-ink:#F0A17B;
+  --accent-wash:#331F14;
+
+  --olive:#9BAA8D;
+  --olive-ink:#AFBCA2;
+  --olive-wash:#1E241A;
+
+  --good:#8FB27F;
+  --warn:#D8A64E;
+  --bad:#E08272;
+
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -12px rgba(0,0,0,.6);
+  color-scheme:dark;
+}
+
+/* ============================================================
+   BASE
+   ============================================================ */
+*,*::before,*::after{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--sans);
+  font-size:clamp(15px,1.05vw,18px);
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+  overflow:hidden;
+}
+h1,h2,h3{font-family:var(--serif);font-weight:600;line-height:1.08;text-wrap:balance;margin:0}
+p{margin:0}
+img{max-width:100%;display:block}
+[hidden]{display:none !important}
+a{color:var(--accent-ink)}
+:focus-visible{outline:2.5px solid var(--accent);outline-offset:3px;border-radius:3px}
+
+/* textura de papel muy sutil */
+body::before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.5;
+  background-image:radial-gradient(circle at 1px 1px, var(--rule) .5px, transparent 0);
+  background-size:22px 22px;
+}
+:root[data-theme="dark"] body::before,
+:root:not([data-theme="light"]) body::before{opacity:.22}
+
+/* ============================================================
+   ESTRUCTURA
+   ============================================================ */
+/* body en columna: la zona principal se estira y la cronología queda siempre visible */
+body{display:flex;flex-direction:column}
+.app{
+  position:relative;z-index:1;
+  flex:1;min-height:0;
+  display:grid;
+  grid-template-columns:var(--rail) 1fr;
+}
+
+/* ---------- Índice lateral ---------- */
+.rail{
+  border-right:1px solid var(--rule);
+  background:var(--paper-2);
+  display:flex;flex-direction:column;
+  min-height:0;
+}
+.rail__head{
+  padding:22px var(--gutter) 14px;
+  border-bottom:1px solid var(--rule);
+  display:flex;align-items:flex-start;gap:12px;justify-content:space-between;
+}
+.rail__title{font-family:var(--serif);font-size:1.28rem;line-height:1.05;letter-spacing:-.01em}
+.rail__title em{font-style:italic;color:var(--accent)}
+.rail__sub{
+  font-size:.68rem;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--ink-3);margin-top:7px;
+}
+.rail__nav{overflow-y:auto;overscroll-behavior:contain;padding:12px 0 24px;flex:1;min-height:0}
+.chap{margin-bottom:2px}
+.chap__btn{
+  width:100%;text-align:left;background:none;border:0;cursor:pointer;
+  font-family:var(--sans);color:var(--ink-2);
+  padding:9px var(--gutter);
+  display:grid;grid-template-columns:22px 1fr;gap:10px;align-items:baseline;
+  font-size:.92rem;line-height:1.3;
+}
+.chap__btn:hover{color:var(--ink);background:var(--paper-3)}
+.chap__num{
+  font-size:.68rem;color:var(--ink-3);font-variant-numeric:tabular-nums;
+  letter-spacing:.04em;
+}
+.chap.is-active .chap__btn{color:var(--accent-ink);font-weight:700}
+.chap.is-active .chap__num{color:var(--accent)}
+.chap__dots{display:flex;gap:5px;padding:0 var(--gutter) 10px calc(var(--gutter) + 32px)}
+.chap:not(.is-active) .chap__dots{display:none}
+.dot{
+  width:22px;height:4px;border-radius:2px;border:0;padding:0;cursor:pointer;
+  background:var(--rule);transition:background .18s;
+}
+.dot:hover{background:var(--olive)}
+.dot.is-on{background:var(--accent)}
+
+.rail__foot{
+  border-top:1px solid var(--rule);
+  padding:12px var(--gutter);
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+}
+.ghost{
+  background:none;border:1px solid var(--rule);color:var(--ink-2);
+  font-family:var(--sans);font-size:.76rem;letter-spacing:.04em;
+  padding:6px 11px;border-radius:999px;cursor:pointer;white-space:nowrap;
+}
+.ghost:hover{border-color:var(--accent);color:var(--accent-ink)}
+
+/* ---------- Zona de diapositiva ---------- */
+.stage{position:relative;min-height:0;display:flex;flex-direction:column}
+
+.slide{
+  flex:1;min-height:0;position:relative;
+  padding:clamp(20px,3vh,44px) var(--gutter) 8px;
+  display:none;
+  grid-template-rows:auto 1fr;
+  gap:clamp(12px,2.2vh,26px);
+}
+/* Señal de que queda contenido por debajo: sólo aparece si de verdad desborda */
+.slide::after{
+  content:"";position:absolute;left:0;right:0;bottom:0;height:46px;
+  background:linear-gradient(to top, var(--paper) 18%, transparent);
+  pointer-events:none;opacity:0;transition:opacity .2s;
+}
+.slide.is-overflowing::after{opacity:1}
+.slide.is-current{display:grid}
+/* La portada no tiene cabecera + cuerpo: ocupa todo el alto y se centra */
+.slide--cover{grid-template-rows:1fr}
+.slide--cover::after{display:none}
+.slide__head{max-width:74ch}
+.eyebrow{
+  font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--accent-ink);font-weight:700;margin-bottom:9px;
+}
+.slide h2{font-size:clamp(1.6rem,3.3vw,2.85rem);letter-spacing:-.018em}
+.slide h2 em{font-style:italic;color:var(--accent)}
+.lede{
+  margin-top:10px;color:var(--ink-2);
+  font-size:clamp(.95rem,1.25vw,1.12rem);max-width:68ch;
+}
+.slide__body{min-height:0;overflow-y:auto;overscroll-behavior:contain;padding-bottom:6px}
+.slide__body::-webkit-scrollbar{width:9px}
+.slide__body::-webkit-scrollbar-thumb{background:var(--rule);border-radius:9px}
+
+/* ---------- Barra inferior / cronología ---------- */
+.timeline{
+  border-top:1px solid var(--rule);
+  background:var(--paper-2);
+  padding:9px var(--gutter) calc(9px + env(safe-area-inset-bottom,0px));
+  display:flex;align-items:center;gap:16px;
+}
+.cassette{display:flex;align-items:flex-end;gap:3px;flex:1;height:26px}
+.cog{
+  flex:1;border-radius:2px 2px 0 0;background:var(--rule);
+  border:0;padding:0;cursor:pointer;min-width:3px;
+  transition:background .18s, height .18s;
+}
+.cog:hover{background:var(--olive)}
+.cog.is-done{background:var(--accent-wash)}
+.cog.is-on{background:var(--accent)}
+.counter{
+  font-size:.76rem;color:var(--ink-3);font-variant-numeric:tabular-nums;
+  letter-spacing:.05em;white-space:nowrap;
+}
+.arrows{display:flex;gap:6px}
+.arrow{
+  width:34px;height:34px;border-radius:50%;border:1px solid var(--rule);
+  background:var(--paper);color:var(--ink-2);cursor:pointer;
+  display:grid;place-items:center;font-size:1rem;line-height:1;
+}
+.arrow:hover:not(:disabled){border-color:var(--accent);color:var(--accent-ink)}
+.arrow:disabled{opacity:.3;cursor:default}
+
+/* ============================================================
+   COMPONENTES DE CONTENIDO
+   ============================================================ */
+.cols{display:grid;gap:clamp(14px,1.8vw,26px)}
+.cols--2{grid-template-columns:repeat(2,1fr)}
+.cols--3{grid-template-columns:repeat(3,1fr)}
+.cols--4{grid-template-columns:repeat(4,1fr)}
+
+.card{
+  background:var(--paper-2);border:1px solid var(--rule);
+  border-radius:4px;padding:clamp(13px,1.5vw,20px);
+}
+.card h3{font-size:1.05rem;margin-bottom:7px}
+.card p{font-size:.92rem;color:var(--ink-2)}
+
+/* La caja de opinión: el único elemento con acento fuerte */
+.tio{
+  border-left:4px solid var(--accent);
+  background:var(--accent-wash);
+  padding:clamp(13px,1.6vw,20px) clamp(15px,1.8vw,24px);
+  border-radius:0 4px 4px 0;
+}
+.tio__label{
+  font-family:var(--serif);font-style:italic;font-weight:600;
+  color:var(--accent-ink);font-size:.95rem;margin-bottom:5px;
+}
+.tio p{font-size:clamp(.93rem,1.15vw,1.05rem);color:var(--ink)}
+.tio p + p{margin-top:9px}
+
+.callout{
+  border:1px dashed var(--rule);border-radius:4px;
+  padding:clamp(12px,1.4vw,18px);background:var(--paper-2);
+}
+.callout__label{
+  font-size:.66rem;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--ink-3);font-weight:700;margin-bottom:6px;
+}
+
+/* Marcador de texto pendiente de Álex */
+.pendiente{
+  border:2px dashed var(--accent);border-radius:4px;
+  padding:clamp(13px,1.6vw,20px);background:var(--accent-wash);
+}
+.pendiente__label{
+  font-size:.66rem;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--accent-ink);font-weight:700;margin-bottom:7px;
+}
+.pendiente p{font-size:.92rem;color:var(--ink-2);font-style:italic}
+
+/* Listas de datos */
+.facts{display:grid;gap:9px;margin:0;padding:0;list-style:none}
+.facts li{
+  display:grid;grid-template-columns:auto 1fr;gap:11px;align-items:baseline;
+  font-size:.93rem;color:var(--ink-2);
+}
+.facts .k{
+  font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;font-weight:700;
+  color:var(--ink-3);white-space:nowrap;padding-top:2px;
+}
+
+.tick{color:var(--good);font-weight:700}
+.cross{color:var(--bad);font-weight:700}
+.tilde{color:var(--warn);font-weight:700}
+
+/* Tablas */
+.tablewrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:.9rem}
+th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--rule);vertical-align:top}
+th{
+  font-size:.66rem;letter-spacing:.11em;text-transform:uppercase;
+  color:var(--ink-3);font-weight:700;
+}
+td{color:var(--ink-2)}
+td strong{color:var(--ink)}
+.num{font-variant-numeric:tabular-nums;text-align:right}
+
+/* Desplegables */
+details{
+  border-top:1px solid var(--rule);padding-top:9px;margin-top:11px;
+}
+summary{
+  cursor:pointer;font-size:.82rem;color:var(--accent-ink);font-weight:700;
+  letter-spacing:.02em;list-style:none;display:flex;align-items:center;gap:7px;
+}
+summary::-webkit-details-marker{display:none}
+summary::before{content:"+";font-family:var(--serif);font-size:1.05rem;line-height:1}
+details[open] summary::before{content:"–"}
+details > *:not(summary){margin-top:9px;font-size:.89rem;color:var(--ink-2)}
+
+/* Precio / peso destacado */
+.stat{display:flex;align-items:baseline;gap:7px}
+.stat__n{
+  font-family:var(--serif);font-size:clamp(1.5rem,2.6vw,2.2rem);
+  font-weight:600;color:var(--accent);font-variant-numeric:tabular-nums;line-height:1;
+}
+.stat__u{font-size:.8rem;color:var(--ink-3);letter-spacing:.05em}
+
+svg{display:block;max-width:100%;height:auto}
+.dia{stroke:var(--ink-2);fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.dia-accent{stroke:var(--accent);stroke-width:2.2}
+.dia-fill{fill:var(--accent-wash);stroke:var(--accent);stroke-width:1.6}
+.dia-label{fill:var(--ink-3);font-family:var(--sans);font-size:11px;stroke:none}
+.dia-label--a{fill:var(--accent-ink);font-weight:700}
+
+/* ============================================================
+   INTERACTIVOS
+   ============================================================ */
+/* Comparador */
+.vs{display:grid;grid-template-columns:1.1fr 1fr 1fr;gap:0;border:1px solid var(--rule);border-radius:4px;overflow:hidden}
+.vs__cell{padding:10px 13px;border-bottom:1px solid var(--rule);font-size:.88rem;color:var(--ink-2)}
+.vs__cell:nth-child(3n+1){background:var(--paper-2);color:var(--ink);font-weight:600}
+.vs__head{
+  background:var(--paper-3) !important;font-family:var(--serif);font-size:1rem;
+  color:var(--ink) !important;font-weight:600;
+}
+.vs__row.is-key .vs__cell{background:var(--olive-wash)}
+.vs__row.is-key .vs__cell:nth-child(3n+1){background:var(--olive-wash)}
+.pips{display:inline-flex;gap:3px;margin-right:7px;vertical-align:middle}
+.pip{width:7px;height:7px;border-radius:50%;background:var(--rule)}
+.pip.is-on{background:var(--accent)}
+.seg{display:flex;gap:0;border:1px solid var(--rule);border-radius:999px;overflow:hidden;width:max-content;margin-bottom:13px}
+.seg button{
+  background:var(--paper);border:0;padding:7px 15px;cursor:pointer;
+  font-family:var(--sans);font-size:.8rem;color:var(--ink-2);
+}
+.seg button.is-on{background:var(--accent);color:#fff}
+:root[data-theme="dark"] .seg button.is-on,
+:root:not([data-theme="light"]) .seg button.is-on{color:#17120E}
+
+/* Calculadora */
+.calc{display:grid;gap:16px;grid-template-columns:minmax(220px,300px) 1fr;align-items:start}
+.field{display:grid;gap:5px;margin-bottom:13px}
+.field label{font-size:.72rem;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3);font-weight:700}
+.field input{
+  font-family:var(--sans);font-size:1.05rem;padding:9px 12px;
+  border:1px solid var(--rule);border-radius:3px;
+  background:var(--paper);color:var(--ink);width:100%;
+  font-variant-numeric:tabular-nums;
+}
+.field input:focus{border-color:var(--accent)}
+.field .hint{font-size:.76rem;color:var(--ink-3)}
+.result{display:grid;gap:11px}
+.result__row{
+  display:flex;align-items:baseline;justify-content:space-between;gap:13px;
+  padding:11px 15px;border:1px solid var(--rule);border-radius:4px;background:var(--paper-2);
+}
+.result__k{font-size:.72rem;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3);font-weight:700}
+.result__v{font-family:var(--serif);font-size:1.4rem;font-weight:600;color:var(--accent)}
+
+/* Checklist */
+.check{display:grid;gap:7px}
+.check__item{
+  display:grid;grid-template-columns:22px 1fr;gap:11px;align-items:start;
+  padding:9px 12px;border:1px solid var(--rule);border-radius:4px;
+  background:var(--paper-2);cursor:pointer;
+}
+.check__item:hover{border-color:var(--accent)}
+.check__item input{width:17px;height:17px;margin:2px 0 0;accent-color:var(--accent);cursor:pointer}
+.check__item h4{margin:0;font-size:.92rem;font-weight:700;font-family:var(--sans)}
+.check__item p{font-size:.82rem;color:var(--ink-3);margin-top:2px}
+.check__item:has(input:checked){background:var(--olive-wash);border-color:var(--olive)}
+.check__item:has(input:checked) h4{text-decoration:line-through;color:var(--ink-3)}
+
+/* Tarjeta de anuncio (huecos de Wallapop) */
+.ad{
+  border:1px solid var(--rule);border-radius:4px;overflow:hidden;background:var(--paper-2);
+  display:grid;grid-template-rows:auto 1fr;
+}
+.ad__shot{
+  aspect-ratio:4/3;background:var(--paper-3);display:grid;place-items:center;
+  color:var(--ink-3);font-size:.78rem;text-align:center;padding:14px;border-bottom:1px solid var(--rule);
+}
+.ad__body{padding:12px 14px}
+.ad__body h4{margin:0 0 5px;font-size:.95rem;font-family:var(--sans)}
+
+/* ============================================================
+   PORTADA Y CIERRE
+   ============================================================ */
+.cover{display:grid;align-content:center;gap:22px;max-width:60ch;height:100%}
+.cover h1{font-size:clamp(2.3rem,6vw,4.6rem);letter-spacing:-.03em;line-height:.98}
+.cover h1 em{font-style:italic;color:var(--accent)}
+.cover__meta{
+  font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3);
+  display:flex;gap:16px;flex-wrap:wrap;
+}
+.sig{font-family:var(--serif);font-style:italic;font-size:1.1rem;color:var(--accent-ink)}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+.railtoggle{display:none}
+@media (max-width:900px){
+  :root{--rail:0px}
+  .app{grid-template-columns:1fr}
+  .rail{
+    position:fixed;inset:0 auto 0 0;width:min(86vw,320px);z-index:40;
+    transform:translateX(-102%);transition:transform .22s ease;
+    box-shadow:var(--shadow);
+  }
+  .rail.is-open{transform:none}
+  .railtoggle{
+    display:grid;place-items:center;position:fixed;z-index:50;
+    top:calc(12px + env(safe-area-inset-top,0px));left:12px;
+    width:40px;height:40px;border-radius:50%;
+    border:1px solid var(--rule);background:var(--paper-2);color:var(--ink);
+    cursor:pointer;font-size:1.05rem;
+  }
+  /* En móvil la densidad sube: el objetivo sigue siendo que quepa sin scroll */
+  .slide{
+    padding-top:calc(56px + env(safe-area-inset-top,0px));
+    padding-bottom:4px;
+    gap:11px;
+  }
+  .slide h2{font-size:clamp(1.35rem,5.8vw,1.85rem)}
+  .lede{font-size:.88rem;margin-top:7px}
+  .eyebrow{font-size:.62rem;margin-bottom:6px}
+  .cols{gap:10px}
+  .card{padding:11px 13px}
+  .card h3{font-size:.97rem}
+  .card p{font-size:.85rem}
+  .facts{gap:7px}
+  .facts li{font-size:.85rem;gap:9px}
+  .tio{padding:11px 14px}
+  .tio p{font-size:.88rem}
+  .callout{padding:10px 12px}
+  .pendiente{padding:11px 13px}
+  .pendiente p{font-size:.85rem}
+  th,td{padding:7px 9px;font-size:.83rem}
+  .check__item{padding:7px 10px}
+  .check__item h4{font-size:.87rem}
+  .check__item p{font-size:.77rem}
+  .result__row{padding:9px 12px}
+  .vs__cell{padding:8px 11px;font-size:.84rem}
+  .cover{gap:16px}
+  .cols--2,.cols--3,.cols--4{grid-template-columns:1fr}
+  .calc{grid-template-columns:1fr}
+  .vs{grid-template-columns:1fr}
+  .vs__cell{border-bottom:0}
+  .vs__row{display:contents}
+  .vs__cell:nth-child(3n+1){border-top:1px solid var(--rule);margin-top:6px}
+  .scrim{position:fixed;inset:0;background:rgba(31,27,22,.4);z-index:35}
+}
+@media (max-width:560px){
+  .cover h1{font-size:clamp(2rem,10vw,3rem)}
+  .counter{display:none}
+}
+
+@media (prefers-reduced-motion: reduce){
+  *{animation:none !important;transition:none !important}
+}
+
+/* ============================================================
+   IMPRESIÓN — pensado para el checklist
+   ============================================================ */
+@media print{
+  body{overflow:visible;background:#fff;color:#000}
+  body::before,.rail,.timeline,.railtoggle,.seg,.arrows{display:none !important}
+  .app{display:block;height:auto}
+  .slide{display:none !important}
+  .slide#checklist{display:block !important;height:auto;padding:0}
+  .slide__body{overflow:visible}
+  .check__item{break-inside:avoid;border-color:#999}
+}
+</style>
+</head>
+<body>
+
+<button class="railtoggle" id="railtoggle" aria-label="Abrir el índice" aria-expanded="false">☰</button>
+
+<div class="app">
+
+  <!-- =========================================================
+       ÍNDICE LATERAL
+       ========================================================= -->
+  <aside class="rail" id="rail">
+    <div class="rail__head">
+      <div>
+        <div class="rail__title">La guía de <em>la bici</em></div>
+        <div class="rail__sub">Para Blanca y Axel</div>
+      </div>
+    </div>
+    <nav class="rail__nav" id="railnav" aria-label="Índice de capítulos"></nav>
+    <div class="rail__foot">
+      <button class="ghost" id="themebtn" aria-label="Cambiar entre modo claro y oscuro">Modo oscuro</button>
+      <span class="counter" id="chapcount"></span>
+    </div>
+  </aside>
+
+  <!-- =========================================================
+       DIAPOSITIVAS
+       ========================================================= -->
+  <main class="stage">
+
+    <!-- ===== CAP 1 · ANTES DE EMPEZAR ===== -->
+
+    <section class="slide slide--cover" id="portada" data-chap="Antes de empezar" data-title="Portada">
+      <div class="cover">
+        <div>
+          <div class="eyebrow">Septiembre de 2026</div>
+          <h1>Dos bicis,<br>un presupuesto<br>y <em>ninguna prisa</em></h1>
+        </div>
+        <div class="pendiente">
+          <div class="pendiente__label">Pendiente · carta de apertura de Álex</div>
+          <p>Aquí va tu carta de entrada firmada. Te traeré 2-3 versiones para elegir: la idea
+          es arrancar con las excursiones con papá y aterrizar en "esto es lo mismo, pero con
+          frenos que funcionan".</p>
+        </div>
+        <div class="cover__meta">
+          <span>700 € por bici</span>
+          <span>Pistas y caminos</span>
+          <span>22 diapositivas</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="los-cinco" data-chap="Antes de empezar" data-title="Los 5 que importan">
+      <div class="slide__head">
+        <div class="eyebrow">El orden correcto</div>
+        <h2>Cinco cosas deciden la compra. <em>El resto es ruido.</em></h2>
+        <p class="lede">Si solo os quedáis con esta diapositiva, ya no os la cuelan. Están en orden:
+        de arriba abajo, de lo que más cambia vuestra experiencia a lo que menos.</p>
+      </div>
+      <div class="slide__body">
+        <div class="cols cols--2">
+          <div>
+            <ul class="facts">
+              <li><span class="k">1 · Talla</span><span><strong>Que os quepa.</strong> Una bici de talla equivocada no se arregla con nada. Es lo único verdaderamente irreversible.</span></li>
+              <li><span class="k">2 · Tipo</span><span><strong>Que sirva para donde vais.</strong> Pistas y caminos con algo de asfalto: rígida o gravel. Nunca doble suspensión a este precio.</span></li>
+              <li><span class="k">3 · Peso</span><span><strong>Menos kilos, más lejos.</strong> Es la diferencia entre volver contentos y no sacarla más.</span></li>
+              <li><span class="k">4 · Anclajes</span><span><strong>Que pueda crecer con vosotros.</strong> Portabultos, guardabarros, y algún día el peque detrás.</span></li>
+              <li><span class="k">5 · Estado</span><span><strong>Que esté sana.</strong> Sobre todo si es de segunda mano. Hay una diapositiva entera para esto.</span></li>
+            </ul>
+          </div>
+          <div>
+            <div class="tio">
+              <div class="tio__label">El tío dice</div>
+              <div class="pendiente" style="border:0;background:none;padding:0">
+                <p>Pendiente: tu caja de apertura. Borrador para que veas el tono →
+                "Fijaos que el precio no está en la lista. El precio no decide nada: decide
+                <em>dónde</em> compráis, no <em>qué</em> compráis."</p>
+              </div>
+            </div>
+            <details>
+              <summary>Y lo que NO está en la lista</summary>
+              <p><strong>La marca.</strong> A este precio todas montan los mismos componentes de los mismos tres fabricantes.</p>
+              <p><strong>El número de velocidades.</strong> 9, 10 u 11 da igual. Lo que importa es el rango, no la cantidad.</p>
+              <p><strong>El color.</strong> Bueno, el color importa. Pero el último.</p>
+            </details>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== CAP 2 · LOS TRES MUNDOS ===== -->
+
+    <section class="slide" id="tres-mundos" data-chap="Los tres mundos" data-title="BTT, carretera y lo de en medio">
+      <div class="slide__head">
+        <div class="eyebrow">El mapa</div>
+        <h2>Todo el ciclismo cabe en <em>una línea</em></h2>
+        <p class="lede">A un extremo, agarre y suspensión. Al otro, velocidad y ligereza.
+        Cuanto más te vas a un lado, más pierdes del otro. La gravel vive justo en medio,
+        y por eso se ha comido el mercado.</p>
+      </div>
+      <div class="slide__body">
+        <svg viewBox="0 0 900 190" role="img" aria-label="Línea que va de bici de montaña a bici de carretera, con la gravel en el centro">
+          <line class="dia" x1="60" y1="96" x2="840" y2="96"></line>
+          <circle class="dia-fill" cx="150" cy="96" r="13"></circle>
+          <circle class="dia-fill" cx="450" cy="96" r="20"></circle>
+          <circle class="dia-fill" cx="750" cy="96" r="13"></circle>
+          <text class="dia-label dia-label--a" x="150" y="68" text-anchor="middle">BTT</text>
+          <text class="dia-label dia-label--a" x="450" y="60" text-anchor="middle">GRAVEL</text>
+          <text class="dia-label dia-label--a" x="750" y="68" text-anchor="middle">CARRETERA</text>
+          <text class="dia-label" x="150" y="130" text-anchor="middle">Manillar recto · 2,1-2,4″</text>
+          <text class="dia-label" x="150" y="147" text-anchor="middle">Suspensión · 13-15 kg</text>
+          <text class="dia-label" x="450" y="130" text-anchor="middle">Drop bar · 35-45 mm</text>
+          <text class="dia-label" x="450" y="147" text-anchor="middle">Rígida · 9-11 kg</text>
+          <text class="dia-label" x="750" y="130" text-anchor="middle">Drop bar · 25-30 mm</text>
+          <text class="dia-label" x="750" y="147" text-anchor="middle">Rígida · 7-9 kg</text>
+          <text class="dia-label" x="60" y="178">← más agarre, más control</text>
+          <text class="dia-label" x="840" y="178" text-anchor="end">más velocidad, menos esfuerzo →</text>
+        </svg>
+        <div class="cols cols--3" style="margin-top:16px">
+          <div class="card">
+            <h3>BTT</h3>
+            <p>Nacida para el sendero. Neumático ancho y tacos, manillar recto, casi siempre
+            suspensión delantera. Va por todas partes, pero en asfalto y pista rueda pesada y lenta.</p>
+          </div>
+          <div class="card">
+            <h3>Gravel</h3>
+            <p>Una bici de carretera a la que le han dejado sitio para neumáticos gordos.
+            Ligera, cómoda para horas, y se sale del asfalto sin despeinarse.</p>
+          </div>
+          <div class="card">
+            <h3>Carretera</h3>
+            <p>Solo asfalto. Rapidísima y frágil fuera de él. Neumático estrecho, postura
+            agresiva. No es vuestra bici y no le vamos a dedicar mucho más.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="dentro-btt" data-chap="Los tres mundos" data-title="Dentro de la BTT">
+      <div class="slide__head">
+        <div class="eyebrow">Cuatro familias</div>
+        <h2>"BTT" no es <em>una</em> bici</h2>
+        <p class="lede">Cuando Blanca dice "quiero una BTT", casi seguro está pensando en la primera
+        columna. Las otras tres existen, pero son para otra cosa — y a este presupuesto, ninguna.</p>
+      </div>
+      <div class="slide__body">
+        <div class="tablewrap">
+          <table>
+            <thead>
+              <tr><th>Familia</th><th>Para qué</th><th>Suspensión</th><th class="num">Peso</th><th>¿Para vosotros?</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>XC / rígida</strong></td>
+                <td>Pistas, caminos, sendero fácil. Subir bien.</td>
+                <td>0-100 mm delante</td>
+                <td class="num">12-15 kg</td>
+                <td><span class="tick">Sí</span> — es la BTT que os encaja</td>
+              </tr>
+              <tr>
+                <td><strong>Trail</strong></td>
+                <td>Sendero de verdad, subir y bajar.</td>
+                <td>130-150 mm, doble</td>
+                <td class="num">14-16 kg</td>
+                <td><span class="tilde">No a este precio.</span> Doble suspensión barata = peso y averías</td>
+              </tr>
+              <tr>
+                <td><strong>Enduro</strong></td>
+                <td>Bajar fuerte. Se sube para poder bajar.</td>
+                <td>160-180 mm, doble</td>
+                <td class="num">15-17 kg</td>
+                <td><span class="cross">No</span> — sufriríais en cada llano</td>
+              </tr>
+              <tr>
+                <td><strong>Descenso</strong></td>
+                <td>Solo bajar. Se sube en remonte.</td>
+                <td>200 mm, doble</td>
+                <td class="num">16-19 kg</td>
+                <td><span class="cross">No</span> — literalmente no pedalea en llano</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="tio" style="margin-top:16px">
+          <div class="tio__label">El tío dice</div>
+          <div class="pendiente" style="border:0;background:none;padding:0">
+            <p>Pendiente. Borrador de tono → "La regla del pobre: cada milímetro de suspensión
+            que no vais a usar son 300 g que subís a pulso toda la vida de la bici. Y una doble
+            suspensión de 700 € pesa lo que una buena rígida de 700 € más una mochila con un niño dentro."</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="la-gravel" data-chap="Los tres mundos" data-title="La gravel">
+      <div class="slide__head">
+        <div class="eyebrow">La que no habíais pedido</div>
+        <h2>Por qué la gravel encaja con <em>vuestro</em> uso</h2>
+        <p class="lede">Dijisteis pistas, caminos de tierra y salir de casa rodando por asfalto
+        hasta llegar al camino. Eso es, literalmente, la definición de para qué se inventó la gravel.</p>
+      </div>
+      <div class="slide__body">
+        <div class="cols cols--2">
+          <div>
+            <ul class="facts">
+              <li><span class="k">Peso</span><span>Una gravel de entrada pesa <strong>~11 kg</strong>; una BTT rígida de entrada, <strong>~15 kg</strong>. Cuatro kilos es muchísimo cuando llevas dos horas.</span></li>
+              <li><span class="k">Asfalto</span><span>En el tramo de casa al camino, la BTT va incómoda y lenta. La gravel vuela.</span></li>
+              <li><span class="k">Postura</span><span>El drop bar da varias posiciones de manos. En rutas largas, eso es lo que evita que se duerman.</span></li>
+              <li><span class="k">Anclajes</span><span>Casi todas traen roscas para portabultos y guardabarros. <strong>Muchas BTT no.</strong> Con un bebé en casa, esto no es un detalle.</span></li>
+              <li><span class="k">El pero</span><span>En sendero con piedras sueltas va peor que una BTT. Pero vosotros no vais a hacer eso.</span></li>
+            </ul>
+          </div>
+          <div>
+            <div class="callout">
+              <div class="callout__label">El único problema real</div>
+              <p style="font-size:.92rem;color:var(--ink-2)">A 700 € <strong>nueva</strong> la gravel casi no existe: la más barata de Decathlon está en 799,99 €. A ese precio, gravel significa
+              <strong>segunda mano</strong>. Y resulta que eso es justo lo que os conviene por otros motivos — capítulo 8.</p>
+            </div>
+            <div class="tio" style="margin-top:14px">
+              <div class="tio__label">El tío dice</div>
+              <div class="pendiente" style="border:0;background:none;padding:0">
+                <p>Pendiente. Aquí es donde empujas tú, que es la sección que querías que
+                conociera. Te traeré 3 versiones: una suave, una convencida y una descarada.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="comparador" data-chap="Los tres mundos" data-title="Comparador">
+      <div class="slide__head">
+        <div class="eyebrow">Cara a cara</div>
+        <h2>La misma ruta, <em>dos bicis</em></h2>
+      </div>
+      <div class="slide__body">
+        <div class="seg" role="group" aria-label="Filtrar la comparación">
+          <button type="button" class="is-on" data-vs="all">Todo</button>
+          <button type="button" data-vs="key">Solo lo que vais a hacer</button>
+        </div>
+        <div class="vs" id="vs">
+          <div class="vs__cell vs__head">Situación</div>
+          <div class="vs__cell vs__head">BTT rígida</div>
+          <div class="vs__cell vs__head">Gravel</div>
+
+          <div class="vs__row is-key">
+            <div class="vs__cell">Asfalto de casa al camino</div>
+            <div class="vs__cell"><span class="pips"><i class="pip is-on"></i><i class="pip"></i><i class="pip"></i></span>Lenta y ruidosa</div>
+            <div class="vs__cell"><span class="pips"><i class="pip is-on"></i><i class="pip is-on"></i><i class="pip is-on"></i></span>Para esto está hecha</div>
+          </div>
+          <div class="vs__row is-key">
+            <div class="vs__cell">Pista ancha y seca</div>
+            <div class="vs__cell"><span class="pips"><i class="pip is-on"></i><i class="pip is-on"></i><i class="pip is-on"></i></span>Perfecta</div>
+            <div class="vs__cell"><span class="pips"><i class="pip is-on"></i><i class="pip is-on"></i><i class="pip is-on"></i></span>Perfecta, y más rápida</div>
+          </div>
+          <div class="vs__row is-key">
+            <div class="vs__cell">Camino con piedra suelta</div>
+            <div class="vs__cell"><span class="pips"><i class="pip is-on"></i><i class="pip is-on"></i><i class="pip is-on"></i></span>Cómoda y segura</div>
+            <div class="vs__cell"><span class="pips"><i class="pip is-on"></i><i class="pip is-on"></i><i class="pip"></i></span>Se nota, pero pasa</div>
+          </div>
+          <div class="vs__row">
+            <div class="vs__cell">Sendero técnico, raíces</div>
+            <div class="vs__cell"><span class="pips"><i class="pip is-on"></i><i class="pip is-on"></i><i class="pip is-on"></i></span>Su terreno</div>
+            <div class="vs__cell"><span class="pips"><i class="pip is-on"></i><i class="pip"></i><i class="pip"></i></span>Incómoda</div>
+          </div>
+          <div class="vs__row is-key">
+            <div class="vs__cell">Subida larga</div>
+            <div class="vs__cell"><span class="pips"><i class="pip is-on"></i><i class="pip"></i><i class="pip"></i></span>Los 4 kg de más se pagan aquí</div>
+            <div class="vs__cell"><span class="pips"><i class="pip is-on"></i><i class="pip is-on"></i><i class="pip is-on"></i></span>Mucho más agradecida</div>
+          </div>
+          <div class="vs__row is-key">
+            <div class="vs__cell">Ruta de 3 horas</div>
+            <div class="vs__cell"><span class="pips"><i class="pip is-on"></i><i class="pip is-on"></i><i class="pip"></i></span>Una sola postura de manos</div>
+            <div class="vs__cell"><span class="pips"><i class="pip is-on"></i><i class="pip is-on"></i><i class="pip is-on"></i></span>Varias posiciones, menos fatiga</div>
+          </div>
+          <div class="vs__row is-key">
+            <div class="vs__cell">Llevar al peque detrás</div>
+            <div class="vs__cell"><span class="pips"><i class="pip is-on"></i><i class="pip"></i><i class="pip"></i></span>Muchas no tienen anclajes</div>
+            <div class="vs__cell"><span class="pips"><i class="pip is-on"></i><i class="pip is-on"></i><i class="pip is-on"></i></span>Casi todas los traen</div>
+          </div>
+          <div class="vs__row is-key">
+            <div class="vs__cell">Encontrarla por 700 €</div>
+            <div class="vs__cell"><span class="pips"><i class="pip is-on"></i><i class="pip is-on"></i><i class="pip is-on"></i></span>Nueva, fácil</div>
+            <div class="vs__cell"><span class="pips"><i class="pip is-on"></i><i class="pip is-on"></i><i class="pip"></i></span>Nueva no; de 2ª mano sí</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== CAP 3 · EL MANILLAR ===== -->
+
+    <section class="slide" id="manillar" data-chap="El manillar" data-title="Recto, drop o flare">
+      <div class="slide__head">
+        <div class="eyebrow">Lo que más se nota al subirse</div>
+        <h2>El manillar cambia <em>toda</em> la bici</h2>
+        <p class="lede">Es la pieza que más condiciona cómo se siente una bici y la que más
+        miedo da a quien no ha probado un drop bar. Spoiler: el miedo se pasa en dos salidas.</p>
+      </div>
+      <div class="slide__body">
+        <div class="cols cols--3">
+          <div class="card">
+            <svg viewBox="0 0 220 96" role="img" aria-label="Manillar recto visto desde arriba">
+              <path class="dia dia-accent" d="M20 48 H200"></path>
+              <path class="dia" d="M20 40 V56 M200 40 V56"></path>
+              <path class="dia" d="M110 48 V80"></path>
+              <text class="dia-label" x="110" y="26" text-anchor="middle">600-760 mm</text>
+            </svg>
+            <h3 style="margin-top:11px">Recto o riser</h3>
+            <p><strong>Manos:</strong> una sola posición.<br>
+            <strong>Gana:</strong> control, dirección directa, frenar fuerte. Más ancho = más palanca.<br>
+            <strong>Pierde:</strong> en rutas largas las manos se cargan. Y hace de vela contra el viento.</p>
+          </div>
+          <div class="card">
+            <svg viewBox="0 0 220 96" role="img" aria-label="Manillar de carretera tipo drop visto desde arriba">
+              <path class="dia dia-accent" d="M70 20 H150"></path>
+              <path class="dia dia-accent" d="M70 20 C44 20 38 42 40 60 C42 76 54 82 62 80"></path>
+              <path class="dia dia-accent" d="M150 20 C176 20 182 42 180 60 C178 76 166 82 158 80"></path>
+              <path class="dia" d="M110 20 V44"></path>
+              <text class="dia-label" x="110" y="14" text-anchor="middle">380-440 mm</text>
+            </svg>
+            <h3 style="margin-top:11px">Drop bar</h3>
+            <p><strong>Manos:</strong> tres o cuatro posiciones.<br>
+            <strong>Gana:</strong> cambiar de postura evita que se duerman las manos. Más aerodinámico.<br>
+            <strong>Pierde:</strong> menos control en terreno bacheado. Requiere una salida de adaptación.</p>
+          </div>
+          <div class="card">
+            <svg viewBox="0 0 220 96" role="img" aria-label="Manillar drop con flare, más abierto por abajo">
+              <path class="dia dia-accent" d="M70 20 H150"></path>
+              <path class="dia dia-accent" d="M70 20 C40 20 26 44 24 62 C22 78 36 84 46 82"></path>
+              <path class="dia dia-accent" d="M150 20 C180 20 194 44 196 62 C198 78 184 84 174 82"></path>
+              <path class="dia" d="M110 20 V44"></path>
+              <text class="dia-label dia-label--a" x="110" y="94" text-anchor="middle">abre 15-25°</text>
+            </svg>
+            <h3 style="margin-top:11px">Drop con <em>flare</em></h3>
+            <p><strong>El de las gravel.</strong> Un drop bar al que le han abierto la parte
+            baja hacia fuera.<br>
+            <strong>Gana:</strong> la estabilidad de un manillar ancho y las posiciones de un drop. Lo mejor de los dos.</p>
+          </div>
+        </div>
+        <div class="tio" style="margin-top:16px">
+          <div class="tio__label">El tío dice</div>
+          <div class="pendiente" style="border:0;background:none;padding:0">
+            <p>Pendiente. Este es el punto donde más gente descarta la gravel por miedo —
+            merece tu empujón personal.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== CAP 4 · COMPONENTES ===== -->
+
+    <section class="slide" id="frenos" data-chap="Componentes" data-title="Frenos">
+      <div class="slide__head">
+        <div class="eyebrow">Menos drama del que os van a contar</div>
+        <h2>Frenos: <em>que sean de disco</em> y a rodar</h2>
+        <p class="lede">En la tienda os van a intentar vender los hidráulicos como si fueran
+        obligatorios. Para lo que vais a hacer vosotros, no lo son.</p>
+      </div>
+      <div class="slide__body">
+        <div class="cols cols--3">
+          <div class="card" style="border-color:var(--olive)">
+            <div class="eyebrow" style="color:var(--olive-ink)">Perfecto</div>
+            <h3>Disco hidráulico</h3>
+            <p>Frena con muy poco dedo y dosifica mejor. Es lo mejor, sí. Pero para pistas y
+            caminos es un lujo, no una necesidad.</p>
+          </div>
+          <div class="card" style="border-color:var(--olive)">
+            <div class="eyebrow" style="color:var(--olive-ink)">Vale perfectamente</div>
+            <h3>Disco mecánico</h3>
+            <p>Un cable en vez de aceite. Pide algo más de mano y un ajuste de vez en cuando.
+            <strong>No descartéis una buena bici por llevar estos.</strong></p>
+          </div>
+          <div class="card" style="border-color:var(--bad)">
+            <div class="eyebrow" style="color:var(--bad)">Aquí sí digo que no</div>
+            <h3>V-brake (de llanta)</h3>
+            <p>Aprieta la llanta, no un disco. Con barro o agua pierde mucho, y desgasta la
+            propia rueda. Si el anuncio no dice "disco", pasad de largo.</p>
+          </div>
+        </div>
+        <div class="tio" style="margin-top:16px">
+          <div class="tio__label">El tío dice</div>
+          <p>No vais a bajar puertos a tumba abierta: vais a hacer pistas y caminos. Con
+          cualquier freno de disco vais sobradísimos. Prefiero que no dejéis escapar una bici
+          buena, ligera y bien cuidada solo porque monta mecánicos en vez de hidráulicos.</p>
+          <p>Y la marca del freno — Shimano, Tektro, Promax — da igual. De verdad.</p>
+        </div>
+        <details>
+          <summary>Si os lo queréis mirar de todas formas</summary>
+          <p>Un disco de <strong>160 mm</strong> es el estándar en gravel y va perfecto. En BTT
+          veréis 180 mm delante: más potencia, más peso, pensado para bajadas largas.</p>
+          <p>Las pastillas son consumibles: se cambian por 15-25 € el juego. Que estén gastadas
+          en una bici de segunda mano no es un problema, es un argumento para regatear.</p>
+        </details>
+      </div>
+    </section>
+
+    <section class="slide" id="transmision" data-chap="Componentes" data-title="Transmisión">
+      <div class="slide__head">
+        <div class="eyebrow">Donde sí merece la pena mirar</div>
+        <h2>Monoplato: <em>menos piezas, menos líos</em></h2>
+        <p class="lede">La transmisión es el cambio de marchas. Aquí sí hay diferencias que se
+        notan cada día, y la buena noticia es que la opción moderna es también la más sencilla.</p>
+      </div>
+      <div class="slide__body">
+        <div class="cols cols--2">
+          <div class="card" style="border-color:var(--accent)">
+            <div class="eyebrow">Recomendado</div>
+            <h3>Monoplato (1x)</h3>
+            <p style="margin-bottom:9px"><strong>Un solo plato delante</strong>, un piñón grande detrás.
+            Un único mando: más duro, más blando. Ya está.</p>
+            <ul class="facts">
+              <li><span class="k">Gana</span><span>No hay que pensar. Nada de "¿en qué plato estoy?"</span></li>
+              <li><span class="k">Gana</span><span>La cadena no se sale. Menos mantenimiento.</span></li>
+              <li><span class="k">Gana</span><span>Menos peso y menos cosas que se rompan.</span></li>
+              <li><span class="k">Pierde</span><span>Saltos entre marchas algo más bruscos.</span></li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Doble o triple plato (2x / 3x)</h3>
+            <p style="margin-bottom:9px">Lo clásico: dos o tres platos delante. Todavía se ve mucho
+            en bicis de segunda mano de hace unos años.</p>
+            <ul class="facts">
+              <li><span class="k">Gana</span><span>Rango un poco más amplio y saltos más suaves.</span></li>
+              <li><span class="k">Pierde</span><span>Dos mandos que coordinar. Se aprende, pero cansa.</span></li>
+              <li><span class="k">Pierde</span><span>Más piezas, más ajustes, más peso.</span></li>
+              <li><span class="k">Ojo</span><span>Que sea 3x no es motivo para descartar una bici buena.</span></li>
+            </ul>
+          </div>
+        </div>
+        <details>
+          <summary>Las jerarquías de Shimano y SRAM, sin marearse</summary>
+          <p>Cada fabricante tiene una escalera de gamas. De abajo arriba, lo que os podéis encontrar:</p>
+          <p><strong>Shimano BTT:</strong> Tourney → Altus → Acera → Alivio → <strong>Deore</strong> → SLX → XT → XTR.<br>
+          <strong>Shimano gravel/carretera:</strong> Claris → Sora → Tiagra → <strong>105</strong> → GRX → Ultegra.<br>
+          <strong>SRAM BTT:</strong> SX → NX → <strong>GX</strong> → X01 → XX1.</p>
+          <p><strong>La regla práctica:</strong> de <em>Deore</em> / <em>105</em> / <em>GX</em> hacia
+          arriba, todo funciona muy bien y dura. Por debajo, funciona pero se nota y se gasta antes.
+          Una bici de segunda mano con Deore por 700 € es mucho mejor compra que una nueva con Altus.</p>
+        </details>
+      </div>
+    </section>
+
+    <section class="slide" id="horquilla" data-chap="Componentes" data-title="Horquilla">
+      <div class="slide__head">
+        <div class="eyebrow">La trampa más común</div>
+        <h2>Una rígida buena gana a una <em>suspensión mala</em></h2>
+        <p class="lede">Es el error clásico al comprar barato: elegir la bici que "lleva más cosas"
+        en vez de la que lleva mejores cosas.</p>
+      </div>
+      <div class="slide__body">
+        <div class="cols cols--2">
+          <div>
+            <ul class="facts">
+              <li><span class="k">El problema</span><span>Una horquilla de suspensión decente cuesta, ella sola, 250-400 €. Si la bici entera vale 500 €, la horquilla que lleva no puede ser buena.</span></li>
+              <li><span class="k">Qué pasa</span><span>Una horquilla barata pesa 2,5-3 kg, se hunde al pedalear, no absorbe casi nada y a los dos años va dura o suena.</span></li>
+              <li><span class="k">La alternativa</span><span>Una horquilla rígida (de aluminio o carbono) pesa 700-1.200 g, no se estropea nunca y no roba energía al pedalear.</span></li>
+              <li><span class="k">Y el confort</span><span>La mayor parte del confort real no viene de la horquilla: viene del <strong>neumático</strong>. Bajar dos décimas de presión hace más que una horquilla mediocre.</span></li>
+              <li><span class="k">Si lleva</span><span>Buscad la palabra <strong>bloqueo</strong> (lockout): poder anularla en asfalto y en subidas cambia mucho.</span></li>
+            </ul>
+          </div>
+          <div>
+            <div class="tio">
+              <div class="tio__label">El tío dice</div>
+              <div class="pendiente" style="border:0;background:none;padding:0">
+                <p>Pendiente. Borrador → "Si tenéis que elegir entre una bici con suspensión
+                y otra sin ella al mismo precio, la de sin suele ser mejor bici: ese dinero
+                ha ido a parar a las ruedas, al cambio y al cuadro, que es donde se nota."</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== CAP 5 · PESO Y MATERIALES ===== -->
+
+    <section class="slide" id="peso" data-chap="Peso y materiales" data-title="El peso">
+      <div class="slide__head">
+        <div class="eyebrow">El número que más se nota</div>
+        <h2>Menos peso = <em>llegáis más lejos</em></h2>
+        <p class="lede">Y llegar más lejos es, al final, lo único que decide si la bici se usa
+        o se queda en el trastero. Dos bicis de entrada reales, ambas de Decathlon:</p>
+      </div>
+      <div class="slide__body">
+        <div class="cols cols--2">
+          <div class="card">
+            <div class="eyebrow">BTT rígida de entrada</div>
+            <h3>Rockrider EXPL 500</h3>
+            <div class="stat" style="margin:11px 0"><span class="stat__n">14,85</span><span class="stat__u">kg · talla M</span></div>
+            <p>499,99 € · aluminio · 1x9 · frenos hidráulicos · horquilla 100 mm</p>
+          </div>
+          <div class="card" style="border-color:var(--accent)">
+            <div class="eyebrow">Gravel de entrada</div>
+            <h3>Triban GRVL 120</h3>
+            <div class="stat" style="margin:11px 0"><span class="stat__n">10,95</span><span class="stat__u">kg · talla M</span></div>
+            <p>799,99 € · aluminio + horquilla de carbono · 1x10 · frenos de disco · 700×38c</p>
+          </div>
+        </div>
+        <div class="callout" style="margin-top:14px">
+          <div class="callout__label">La cuenta</div>
+          <p style="font-size:.95rem;color:var(--ink-2)"><strong>3,9 kg de diferencia.</strong> Es como
+          subir cada cuesta con una garrafa de agua de cuatro litros atada al cuadro. En una ruta
+          llana casi ni se nota; en la tercera subida del día, se nota muchísimo.</p>
+        </div>
+        <details>
+          <summary>Dónde se gana peso de verdad a vuestro presupuesto</summary>
+          <p><strong>1. Ruedas y neumáticos.</strong> Es peso que además <em>gira</em>, así que cuesta
+          el doble arrancarlo y pararlo. 200 g menos en cada rueda se notan más que 500 g menos en el cuadro.</p>
+          <p><strong>2. Quitar lo que no usáis.</strong> Horquilla de suspensión barata, pata de cabra,
+          protectores de plástico: kilo y medio fácil.</p>
+          <p><strong>3. El cuadro.</strong> Es lo que todo el mundo mira y lo último donde vais a ganar
+          a este precio. Por eso la siguiente diapositiva.</p>
+        </details>
+      </div>
+    </section>
+
+    <section class="slide" id="materiales" data-chap="Peso y materiales" data-title="Aluminio, carbono, acero">
+      <div class="slide__head">
+        <div class="eyebrow">Y aquí está el truco</div>
+        <h2>El carbono existe. <em>Pero no de estreno.</em></h2>
+        <p class="lede">Todo el mundo quiere carbono porque es lo más ligero. Lo que nadie os dice
+        es que a 700 € solo hay una puerta para llegar a él — y esa puerta es el capítulo 8.</p>
+      </div>
+      <div class="slide__body">
+        <div class="cols cols--3">
+          <div class="card" style="border-color:var(--olive)">
+            <h3>Aluminio</h3>
+            <p style="margin-bottom:9px"><strong>El 95 % de lo que vais a ver.</strong></p>
+            <ul class="facts">
+              <li><span class="k">Peso</span><span>Bien. No es lo más ligero, pero cumple.</span></li>
+              <li><span class="k">Golpes</span><span>Aguanta caídas, roces y el trato normal.</span></li>
+              <li><span class="k">Anclajes</span><span><strong>Admite portabultos y sillita sin problema.</strong></span></li>
+              <li><span class="k">Precio</span><span>Es lo que hay a vuestro presupuesto, nuevo.</span></li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Carbono</h3>
+            <p style="margin-bottom:9px"><strong>Lo más ligero. Y lo más delicado.</strong></p>
+            <ul class="facts">
+              <li><span class="k">Peso</span><span>1-1,5 kg menos que el mismo cuadro en aluminio.</span></li>
+              <li><span class="k">Nuevo</span><span>Desde ~1.500-2.000 €. Fuera de presupuesto.</span></li>
+              <li><span class="k">2ª mano</span><span>Sí aparece por 600-900 €. Ahí está la puerta.</span></li>
+              <li><span class="k">Ojo</span><span>Un golpe puede dejar daño interno invisible. Y muchos cuadros <strong>no admiten sillita</strong>: no se puede apretar una abrazadera sobre carbono.</span></li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Acero</h3>
+            <p style="margin-bottom:9px"><strong>El clásico que no muere.</strong></p>
+            <ul class="facts">
+              <li><span class="k">Peso</span><span>El más pesado de los tres.</span></li>
+              <li><span class="k">Tacto</span><span>Absorbe vibración como ninguno. Muy cómodo.</span></li>
+              <li><span class="k">Vida</span><span>Se repara soldando. Dura décadas.</span></li>
+              <li><span class="k">Dónde</span><span>Bicis de viaje y algunas gravel. Poco habitual de entrada.</span></li>
+            </ul>
+          </div>
+        </div>
+        <div class="tio" style="margin-top:16px">
+          <div class="tio__label">El tío dice</div>
+          <div class="pendiente" style="border:0;background:none;padding:0">
+            <p>Pendiente — <strong>y esta es la caja más importante de la guía</strong>, porque
+            enlaza el peso con la segunda mano. Tu idea: por 700 € nuevos no hay carbono ni bici
+            ligera; por 700 € de segunda mano sí. Te traeré 3 versiones.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== CAP 6 · QUE OS QUEPA ===== -->
+
+    <section class="slide" id="tallas" data-chap="Que os quepa" data-title="Cómo se miden las tallas">
+      <div class="slide__head">
+        <div class="eyebrow">Lo único irreversible</div>
+        <h2>La talla se mide por <em>el tubo del sillín</em></h2>
+        <p class="lede">Todo lo demás se ajusta: el sillín sube y baja, la potencia se cambia,
+        el manillar se gira. El cuadro, no. Por eso es lo primero de la lista.</p>
+      </div>
+      <div class="slide__body">
+        <div class="cols cols--2">
+          <div>
+            <svg viewBox="0 0 370 240" role="img" aria-label="Cuadro de bicicleta visto de lado: el tubo del sillín marcado como la talla, y el standover medido desde el tubo superior hasta el suelo">
+              <!-- ruedas: trasera a la izquierda, delantera a la derecha -->
+              <circle class="dia" cx="88" cy="166" r="40"></circle>
+              <circle class="dia" cx="302" cy="166" r="40"></circle>
+              <!-- triángulo principal -->
+              <path class="dia" d="M162 166 L88 166"></path>
+              <path class="dia" d="M134 92 L88 166"></path>
+              <path class="dia" d="M134 92 L254 88"></path>
+              <path class="dia" d="M162 166 L266 120"></path>
+              <path class="dia" d="M254 88 L266 120"></path>
+              <path class="dia" d="M266 120 L302 166"></path>
+              <!-- tija y sillín -->
+              <path class="dia" d="M132 92 L128 66 M112 64 H150"></path>
+              <!-- potencia y manillar -->
+              <path class="dia" d="M254 88 L250 70 M236 68 H266"></path>
+              <!-- el tubo del sillín: esto es la talla -->
+              <path class="dia dia-accent" d="M162 166 L134 92"></path>
+              <circle cx="162" cy="166" r="4" fill="var(--accent)" stroke="none"></circle>
+              <!-- suelo -->
+              <path class="dia" stroke-dasharray="5 5" d="M40 208 H340"></path>
+              <!-- cota de standover -->
+              <path class="dia" stroke-dasharray="4 4" d="M194 90 V208"></path>
+              <path class="dia" d="M188 90 H200 M188 208 H200"></path>
+              <text class="dia-label" x="340" y="224" text-anchor="end">suelo</text>
+              <!-- leyenda, fuera del dibujo para que nada se solape -->
+              <path class="dia dia-accent" d="M16 20 H44"></path>
+              <text class="dia-label dia-label--a" x="52" y="24">la talla = el tubo del sillín</text>
+              <path class="dia" stroke-dasharray="4 4" d="M16 42 H44"></path>
+              <text class="dia-label" x="52" y="46">standover: del tubo superior al suelo</text>
+            </svg>
+          </div>
+          <div>
+            <ul class="facts">
+              <li><span class="k">Cómo</span><span>Se mide el <strong>tubo del sillín</strong>, desde el eje de los pedales hasta donde acaba. En BTT, en pulgadas (15″, 17″, 19″). En gravel y carretera, en centímetros (52, 54, 56).</span></li>
+              <li><span class="k">Standover</span><span>La altura de la barra superior. De pie a horcajadas sobre la bici, os tiene que quedar <strong>2-4 cm de aire</strong> en la entrepierna. Si roza, la bici es grande.</span></li>
+              <li><span class="k">La regla de oro</span><span>Entre dos tallas, <strong>siempre la más pequeña</strong>. Una bici pequeña se agranda con el sillín y la potencia; una grande no hay manera de encogerla.</span></li>
+              <li><span class="k">Entrepierna</span><span>Más fiable que la altura. Se mide descalzo, de espaldas a la pared, con un libro apretado en la entrepierna: del suelo al lomo del libro.</span></li>
+            </ul>
+            <div class="callout" style="margin-top:13px;border-style:solid;border-color:var(--accent)">
+              <div class="callout__label" style="color:var(--accent-ink)">Para vosotros dos, 170-172 cm</div>
+              <p style="font-size:1rem;color:var(--ink)"><strong>BTT: talla M</strong> (17-18″, ruedas de 29″).
+              <strong>Gravel: talla M</strong> (54-55 cm).<br>
+              <span style="color:var(--ink-3);font-size:.88rem">Y como medís lo mismo, podéis probaros la bici del otro antes de decidir. Eso vale más que cualquier tabla.</span></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="calculadora" data-chap="Que os quepa" data-title="Calculadora de talla">
+      <div class="slide__head">
+        <div class="eyebrow">Para mirar anuncios</div>
+        <h2>Vuestra talla, <em>en dos números</em></h2>
+        <p class="lede">Para descartar anuncios de un vistazo sin tener que preguntar al vendedor.</p>
+      </div>
+      <div class="slide__body">
+        <div class="calc">
+          <div>
+            <div class="field">
+              <label for="altura">Altura (cm)</label>
+              <input type="number" id="altura" value="171" min="130" max="215" step="1" inputmode="numeric">
+            </div>
+            <div class="field">
+              <label for="entrepierna">Entrepierna (cm) — opcional</label>
+              <input type="number" id="entrepierna" min="55" max="110" step="1" inputmode="numeric" placeholder="p. ej. 79">
+              <span class="hint">Descalzo, de espaldas a la pared, con un libro apretado arriba.</span>
+            </div>
+          </div>
+          <div class="result" id="result" aria-live="polite">
+            <div class="result__row">
+              <span class="result__k">BTT / montaña</span>
+              <span class="result__v" id="r-mtb">—</span>
+            </div>
+            <div class="result__row">
+              <span class="result__k">Gravel / carretera</span>
+              <span class="result__v" id="r-gravel">—</span>
+            </div>
+            <div class="result__row" id="row-sillin" hidden>
+              <span class="result__k">Altura del sillín</span>
+              <span class="result__v" id="r-sillin">—</span>
+            </div>
+            <div class="callout">
+              <div class="callout__label">Qué significa</div>
+              <p id="r-nota" style="font-size:.9rem;color:var(--ink-2)">—</p>
+            </div>
+          </div>
+        </div>
+        <details>
+          <summary>De dónde salen estos números</summary>
+          <p>Las tallas son el consenso de las tablas de los fabricantes: hay medio centímetro
+          de diferencia entre marcas, pero ninguna se sale del rango.</p>
+          <p>La altura del sillín usa la fórmula clásica: <strong>entrepierna × 0,885</strong>, medida
+          desde el eje de los pedales hasta lo alto del sillín. Es un punto de partida muy bueno;
+          luego se afina un par de milímetros arriba o abajo según cómo se sienta la rodilla.</p>
+        </details>
+      </div>
+    </section>
+
+    <section class="slide" id="ruedas" data-chap="Que os quepa" data-title="Tamaños de rueda">
+      <div class="slide__head">
+        <div class="eyebrow">Números que parecen importar más de lo que importan</div>
+        <h2>26, 27,5, 29, 700c, 650b… <em>¿y esto?</em></h2>
+        <p class="lede">Dos sistemas de medida para lo mismo: BTT habla en pulgadas, carretera y
+        gravel en la nomenclatura francesa. La traducción es más simple de lo que parece.</p>
+      </div>
+      <div class="slide__body">
+        <div class="cols cols--2">
+          <div>
+            <svg viewBox="0 0 360 150" role="img" aria-label="Comparación de los tres tamaños de rueda">
+              <circle class="dia" cx="56" cy="88" r="42"></circle>
+              <circle class="dia" cx="172" cy="83" r="47"></circle>
+              <circle class="dia dia-accent" cx="296" cy="78" r="52"></circle>
+              <text class="dia-label" x="56" y="144" text-anchor="middle">26″</text>
+              <text class="dia-label" x="172" y="144" text-anchor="middle">27,5″ = 650b</text>
+              <text class="dia-label dia-label--a" x="296" y="144" text-anchor="middle">29″ = 700c</text>
+            </svg>
+            <div class="callout" style="margin-top:11px">
+              <div class="callout__label">La traducción</div>
+              <p style="font-size:.9rem;color:var(--ink-2)"><strong>29″ y 700c son la misma llanta.</strong>
+              Una gravel de 700c y una BTT de 29″ montan ruedas del mismo diámetro; lo que cambia es
+              el ancho del neumático que les cabe. Igual que <strong>27,5″ y 650b</strong>.</p>
+            </div>
+          </div>
+          <div>
+            <ul class="facts">
+              <li><span class="k">29″ / 700c</span><span><strong>El estándar hoy.</strong> Pasa mejor los baches, mantiene la velocidad y rueda más suelto. Es lo que os conviene con 170 cm.</span></li>
+              <li><span class="k">27,5″ / 650b</span><span>Más ágil y más manejable. Habitual en tallas pequeñas (S) y en gravel con neumático muy gordo.</span></li>
+              <li><span class="k">26″</span><span><strong>Obsoleto.</strong> Solo en bicis de más de 10-12 años. Cada vez cuesta más encontrar repuestos. En un anuncio, es señal de bici vieja.</span></li>
+            </ul>
+            <div class="callout" style="margin-top:13px;border-style:solid">
+              <div class="callout__label">El ancho importa más que el diámetro</div>
+              <p style="font-size:.9rem;color:var(--ink-2)">
+              <strong>35-40 mm</strong> · gravel rápida, mucho asfalto.<br>
+              <strong>40-45 mm</strong> · <span style="color:var(--accent-ink);font-weight:700">el punto dulce para vosotros.</span> Cómodo en camino, digno en asfalto.<br>
+              <strong>2,1-2,4″ (53-61 mm)</strong> · BTT. Mucho agarre, mucha lentitud en asfalto.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== CAP 7 · CON EL PEQUE ===== -->
+
+    <section class="slide" id="anclajes" data-chap="Con el peque" data-title="Anclajes">
+      <div class="slide__head">
+        <div class="eyebrow">Se decide ahora, no dentro de un año</div>
+        <h2>Los agujeros que <em>nadie mira</em></h2>
+        <p class="lede">Son unas roscas soldadas al cuadro. No se ven en las fotos de los anuncios,
+        no salen en las fichas técnicas, y son lo que decide si esa bici puede llevar al peque.</p>
+      </div>
+      <div class="slide__body">
+        <div class="cols cols--2">
+          <div>
+            <svg viewBox="0 0 370 240" role="img" aria-label="Cuadro de bicicleta con los tres puntos donde van las roscas de anclaje: vaina, tirante y puntera">
+              <circle class="dia" cx="88" cy="166" r="40"></circle>
+              <circle class="dia" cx="302" cy="166" r="40"></circle>
+              <path class="dia" d="M162 166 L88 166"></path>
+              <path class="dia" d="M134 92 L88 166"></path>
+              <path class="dia" d="M134 92 L254 88"></path>
+              <path class="dia" d="M162 166 L266 120"></path>
+              <path class="dia" d="M254 88 L266 120"></path>
+              <path class="dia" d="M266 120 L302 166"></path>
+              <path class="dia" d="M132 92 L128 66 M112 64 H150"></path>
+              <path class="dia" d="M254 88 L250 70 M236 68 H266"></path>
+              <path class="dia" d="M162 166 L134 92"></path>
+              <!-- los tres puntos de anclaje -->
+              <circle class="dia-fill" cx="126" cy="166" r="8"></circle>
+              <circle class="dia-fill" cx="110" cy="130" r="8"></circle>
+              <circle class="dia-fill" cx="88" cy="166" r="8"></circle>
+              <path class="dia" d="M126 176 V196"></path>
+              <path class="dia" d="M110 122 V100"></path>
+              <path class="dia" d="M80 172 L52 200"></path>
+              <text class="dia-label dia-label--a" x="126" y="212" text-anchor="middle">vaina</text>
+              <text class="dia-label dia-label--a" x="110" y="94" text-anchor="middle">tirante</text>
+              <text class="dia-label dia-label--a" x="48" y="214" text-anchor="end">puntera</text>
+              <text class="dia-label" x="340" y="214" text-anchor="end">aquí va el portabultos</text>
+            </svg>
+          </div>
+          <div>
+            <ul class="facts">
+              <li><span class="k">Qué buscar</span><span>Roscas en la <strong>vaina</strong> (cerca del eje trasero) y en el <strong>tirante</strong> (arriba, hacia el sillín). Con esas dos parejas, entra cualquier portabultos.</span></li>
+              <li><span class="k">Gravel</span><span>Casi todas las traen. Muchas llevan además roscas para guardabarros y para bidones extra.</span></li>
+              <li><span class="k">BTT</span><span><strong>Muchas no las traen.</strong> Las de corte deportivo, casi ninguna.</span></li>
+              <li><span class="k">Carbono</span><span>Aunque tenga roscas, comprobad qué dice el fabricante: bastantes cuadros prohíben portabultos y sillitas.</span></li>
+              <li><span class="k">En el anuncio</span><span>No se ve. <strong>Pedid una foto del lateral trasero</strong> — es la pregunta más útil que podéis hacer a un vendedor.</span></li>
+            </ul>
+          </div>
+        </div>
+        <div class="tio" style="margin-top:14px">
+          <div class="tio__label">El padrino dice</div>
+          <div class="pendiente" style="border:0;background:none;padding:0">
+            <p>Pendiente. Tu caja aquí: esto es lo que diferencia esta guía de cualquier
+            artículo de internet, porque nadie más sabe que acabáis de tener un bebé.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="sillita-remolque" data-chap="Con el peque" data-title="Sillita o remolque">
+      <div class="slide__head">
+        <div class="eyebrow">La tensión de verdad</div>
+        <h2>La bici más ligera y la que lleva al peque <em>no son la misma</em></h2>
+        <p class="lede">Aquí es donde hay que elegir de verdad. Y hay una salida que casi nadie
+        tiene en cuenta.</p>
+      </div>
+      <div class="slide__body">
+        <div class="cols cols--2">
+          <div class="card">
+            <h3>Sillita trasera</h3>
+            <ul class="facts" style="margin-top:9px">
+              <li><span class="k">Cómo va</span><span>Sobre el portabultos, o con una abrazadera al tubo del sillín.</span></li>
+              <li><span class="k">Edad</span><span>Desde que se sienta solo con la espalda firme (~9-12 meses) hasta ~22 kg.</span></li>
+              <li><span class="k">Necesita</span><span><strong>Cuadro compatible.</strong> Es la opción que más restringe qué bici podéis comprar.</span></li>
+              <li><span class="k">Pega</span><span>Sube mucho el centro de gravedad. Al parar y arrancar se nota bastante.</span></li>
+            </ul>
+          </div>
+          <div class="card" style="border-color:var(--accent)">
+            <div class="eyebrow">La salida elegante</div>
+            <h3>Remolque</h3>
+            <ul class="facts" style="margin-top:9px">
+              <li><span class="k">Cómo va</span><span><strong>Se engancha al eje trasero</strong>, no al cuadro. Por eso es compatible con muchísimas más bicis.</span></li>
+              <li><span class="k">Edad</span><span>Desde muy pequeño con el accesorio de cuco. Y caben dos.</span></li>
+              <li><span class="k">Gana</span><span>Va bajo y estable. La bici se conduce casi igual. Protege de sol y lluvia. Se desengancha en 10 segundos.</span></li>
+              <li><span class="k">Pega</span><span>Cuesta más (250-500 €) y ocupa sitio en casa.</span></li>
+            </ul>
+          </div>
+        </div>
+        <div class="callout" style="margin-top:14px;border-style:solid;border-color:var(--olive)">
+          <div class="callout__label" style="color:var(--olive-ink)">Cómo lo resolvería yo</div>
+          <p style="font-size:.95rem;color:var(--ink-2)">Comprad la bici que queréis para <strong>vosotros</strong>,
+          y que al menos <em>una de las dos</em> tenga anclajes. El remolque va detrás de casi cualquier
+          bici, así que no hace falta que las dos estén limitadas. Una ligera para disfrutar, una con
+          anclajes para el peque — y como medís lo mismo, os las vais cambiando.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== CAP 8 · SEGUNDA MANO ===== -->
+
+    <section class="slide" id="por-que-segunda-mano" data-chap="Segunda mano" data-title="Por qué de segunda mano">
+      <div class="slide__head">
+        <div class="eyebrow">El capítulo que más dinero os ahorra</div>
+        <h2>700 € nuevos o 700 € usados <em>no compran lo mismo</em></h2>
+        <p class="lede">Una bici pierde alrededor del 40 % de su valor el primer año y apenas nada
+        a partir del cuarto. Esa curva es vuestra amiga.</p>
+      </div>
+      <div class="slide__body">
+        <div class="tablewrap">
+          <table>
+            <thead>
+              <tr><th>Por 700 €</th><th>Nueva</th><th>De segunda mano (3-5 años)</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><strong>Gama</strong></td><td>Lo más bajo del catálogo actual</td><td>Gama media-alta de su año</td></tr>
+              <tr><td><strong>Cuadro</strong></td><td>Aluminio de entrada</td><td>Aluminio bueno, o <strong>carbono</strong></td></tr>
+              <tr><td><strong>Peso</strong></td><td>13-15 kg</td><td><strong>9-11 kg</strong></td></tr>
+              <tr><td><strong>Transmisión</strong></td><td>Altus / Claris / SX</td><td><strong>Deore / 105 / GX</strong></td></tr>
+              <tr><td><strong>Garantía</strong></td><td>2 años (y de por vida el cuadro en Decathlon)</td><td>Ninguna</td></tr>
+              <tr><td><strong>Riesgo</strong></td><td>Cero</td><td>Hay que saber mirar → siguiente diapositiva</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="cols cols--2" style="margin-top:14px">
+          <div class="callout">
+            <div class="callout__label">Dónde buscar</div>
+            <p style="font-size:.89rem;color:var(--ink-2)">
+            <strong>Wallapop</strong> · lo más barato, más riesgo, trato directo.<br>
+            <strong>Milanuncios</strong> · parecido, algo más de bici de club.<br>
+            <strong>Tuvalum</strong> · revisadas y con garantía. Más caro, casi cero riesgo.<br>
+            <strong>Decathlon Segunda Vida</strong> · reacondicionadas por ellos, con garantía.<br>
+            <strong>Tienda de barrio</strong> · preguntad por bicis de exposición o del año pasado.</p>
+          </div>
+          <div class="tio">
+            <div class="tio__label">El tío dice</div>
+            <div class="pendiente" style="border:0;background:none;padding:0">
+              <p>Pendiente. Tu caja: aquí es donde recoges el hilo del peso y del carbono
+              de las diapositivas 11 y 12 y lo cierras.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="wallapop" data-chap="Segunda mano" data-title="Cómo buscar en Wallapop">
+      <div class="slide__head">
+        <div class="eyebrow">Escrito por Álex</div>
+        <h2>Cómo buscar en Wallapop <em>sin perder la cabeza</em></h2>
+      </div>
+      <div class="slide__body">
+        <div class="pendiente" style="margin-bottom:16px">
+          <div class="pendiente__label">Pendiente · texto íntegro de Álex</div>
+          <p>Esta diapositiva la escribes tú entera: cómo filtras, qué palabras buscas, cómo
+          ordenas, cómo detectas un anuncio bueno. Yo solo la maqueto. Cuando me pases el texto
+          lo monto aquí con el mismo formato que el resto.</p>
+        </div>
+        <div class="cols cols--3">
+          <article class="ad">
+            <div class="ad__shot">Hueco para la captura<br>del anuncio 1<br><span style="opacity:.7">img/anuncio-1.jpg</span></div>
+            <div class="ad__body">
+              <h4>Anuncio de ejemplo 1</h4>
+              <p style="font-size:.82rem;color:var(--ink-3)">Pásame el enlace y la captura y le pongo
+              las anotaciones encima: qué es buena señal, qué es red flag y dónde hay margen para regatear.</p>
+            </div>
+          </article>
+          <article class="ad">
+            <div class="ad__shot">Hueco para la captura<br>del anuncio 2<br><span style="opacity:.7">img/anuncio-2.jpg</span></div>
+            <div class="ad__body">
+              <h4>Anuncio de ejemplo 2</h4>
+              <p style="font-size:.82rem;color:var(--ink-3)">Idealmente uno bueno y uno malo, para que
+              se vea la diferencia de un vistazo.</p>
+            </div>
+          </article>
+          <article class="ad">
+            <div class="ad__shot">Hueco para la captura<br>del anuncio 3<br><span style="opacity:.7">img/anuncio-3.jpg</span></div>
+            <div class="ad__body">
+              <h4>Anuncio de ejemplo 3</h4>
+              <p style="font-size:.82rem;color:var(--ink-3)">Opcional. Si solo me pasas dos, quito esta tarjeta.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="checklist" data-chap="Segunda mano" data-title="Antes de pagar">
+      <div class="slide__head">
+        <div class="eyebrow">Para llevar en el móvil</div>
+        <h2>Antes de pagar, <em>repasad esto</em></h2>
+        <p class="lede">Marcadlo delante del vendedor, sin prisa. Si algo no cuadra, no pasa nada:
+        hay mil bicis más. Se guarda solo, y también se imprime.</p>
+      </div>
+      <div class="slide__body">
+        <div class="seg" style="margin-bottom:13px">
+          <button type="button" id="printbtn">Imprimir</button>
+          <button type="button" id="resetbtn">Desmarcar todo</button>
+        </div>
+        <div class="check" id="check">
+          <label class="check__item"><input type="checkbox" data-ck="factura"><span><h4>Factura o prueba de compra</h4><p>Y que el <strong>número de cuadro</strong> coincida. Sin esto, puede ser robada — y te la pueden requisar meses después.</p></span></label>
+          <label class="check__item"><input type="checkbox" data-ck="serie"><span><h4>El número de cuadro está intacto</h4><p>Bajo el eje de los pedales. Si está limado o borrado, marchaos. Sin discusión.</p></span></label>
+          <label class="check__item"><input type="checkbox" data-ck="fotos"><span><h4>Fotos antiguas de la bici</h4><p>Si no hay factura, pedidle fotos viejas. Quien la ha tenido años, las tiene.</p></span></label>
+          <label class="check__item"><input type="checkbox" data-ck="grietas"><span><h4>Cuadro sin grietas ni abolladuras</h4><p>Mirad las uniones de los tubos a contraluz. En carbono, buscad astillados y golpead suave: si suena sordo en un punto, hay daño.</p></span></label>
+          <label class="check__item"><input type="checkbox" data-ck="talla"><span><h4>La talla es la vuestra</h4><p>Subíos. De pie a horcajadas tiene que quedar aire en la entrepierna. Si roza, no es.</p></span></label>
+          <label class="check__item"><input type="checkbox" data-ck="direccion"><span><h4>Dirección sin holgura</h4><p>Freno delantero apretado y empujad la bici adelante y atrás. Si notáis un "clonc", la dirección está tocada.</p></span></label>
+          <label class="check__item"><input type="checkbox" data-ck="pedalier"><span><h4>Pedalier y ruedas sin juego</h4><p>Moved los pedales y las ruedas de lado a lado. No se tienen que mover. Y que giren libres y silenciosas.</p></span></label>
+          <label class="check__item"><input type="checkbox" data-ck="cadena"><span><h4>Cadena y piñones no gastados</h4><p>Dientes en forma de ola o de gancho = transmisión al final de su vida. Son 60-120 € de recambio: argumento para regatear.</p></span></label>
+          <label class="check__item"><input type="checkbox" data-ck="cambio"><span><h4>Entran todas las marchas</h4><p>Con la bici en marcha, subid y bajad todo el cassette. Sin saltos ni ruidos raros.</p></span></label>
+          <label class="check__item"><input type="checkbox" data-ck="frenos"><span><h4>Los frenos frenan de verdad</h4><p>Que no toquen el manillar al apretar. Disco alabeado o pastillas al límite: se arregla barato, pero que baje el precio.</p></span></label>
+          <label class="check__item"><input type="checkbox" data-ck="ruedas"><span><h4>Ruedas rectas</h4><p>Levantad la bici y giradlas mirando la pastilla de freno. Si la llanta baila de lado, necesita centrado.</p></span></label>
+          <label class="check__item"><input type="checkbox" data-ck="anclajes"><span><h4>Tiene los anclajes que necesitáis</h4><p>Roscas en vaina y tirante. Miradlo <em>antes</em> de pagar, no en casa.</p></span></label>
+          <label class="check__item"><input type="checkbox" data-ck="prueba"><span><h4>La habéis probado rodando</h4><p>Aunque sean 200 metros. Un vendedor que no os deja probarla os está diciendo algo.</p></span></label>
+          <label class="check__item"><input type="checkbox" data-ck="sitio"><span><h4>Quedad de día y en sitio público</h4><p>Mejor a la puerta de una tienda de bicis: por 20-30 € os la revisan ellos antes de pagar.</p></span></label>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="dos-bicis" data-chap="Segunda mano" data-title="Son dos bicis">
+      <div class="slide__head">
+        <div class="eyebrow">Vuestra ventaja</div>
+        <h2>Comprar <em>dos</em> es una palanca</h2>
+        <p class="lede">Casi nadie compra dos bicis a la vez. Vosotros sí, y eso vale dinero
+        en la negociación — si lo usáis bien.</p>
+      </div>
+      <div class="slide__body">
+        <div class="cols cols--2">
+          <div>
+            <ul class="facts">
+              <li><span class="k">En tienda</span><span>Pedid precio <strong>por las dos juntas</strong>. Un margen del 10 % es normal; si no lo dan en dinero, pedidlo en accesorios: cascos, luces, candado, un par de revisiones.</span></li>
+              <li><span class="k">Un vendedor</span><span>Buscad a quien venda una pareja de bicis. Pasa más de lo que parece: parejas que lo dejaron, mudanzas. Se llevan un buen pellizco y vosotros ahorráis dos desplazamientos.</span></li>
+              <li><span class="k">Cerrad juntas</span><span>"Nos llevamos las dos hoy si nos lo dejáis en X" funciona muchísimo mejor que regatear una.</span></li>
+              <li><span class="k">No hace falta</span><span>que sean iguales ni del mismo sitio. Una nueva y una de segunda mano es una combinación perfectamente sensata.</span></li>
+              <li><span class="k">Medís lo mismo</span><span>Misma talla los dos: podéis probaros la del otro antes de decidir, y cambiároslas según el día.</span></li>
+            </ul>
+          </div>
+          <div>
+            <div class="callout" style="border-style:solid;border-color:var(--accent)">
+              <div class="callout__label" style="color:var(--accent-ink)">El reparto que yo haría</div>
+              <p style="font-size:.93rem;color:var(--ink-2)">Una <strong>gravel de segunda mano</strong> ligera
+              para disfrutar de las rutas largas, y una <strong>con anclajes</strong> — gravel o rígida —
+              para el remolque y los recados. Entre las dos os cubrís todo, y ninguna tiene que ser
+              un compromiso a medias.</p>
+            </div>
+            <div class="tio" style="margin-top:13px">
+              <div class="tio__label">El tío dice</div>
+              <div class="pendiente" style="border:0;background:none;padding:0">
+                <p>Pendiente.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== CAP 9 · CIERRE ===== -->
+
+    <section class="slide" id="cierre" data-chap="Cierre" data-title="Lo que yo compraría">
+      <div class="slide__head">
+        <div class="eyebrow">Y ya está</div>
+        <h2>Lo que yo <em>compraría</em></h2>
+      </div>
+      <div class="slide__body">
+        <div class="cols cols--2">
+          <div>
+            <div class="pendiente">
+              <div class="pendiente__label">Pendiente · carta de cierre de Álex</div>
+              <p>Tu recomendación final, sin ambigüedades: qué comprarías tú si fuera tu dinero.
+              Y el guiño de padrino al final — una línea, como pediste.</p>
+            </div>
+            <div class="callout" style="margin-top:14px">
+              <div class="callout__label">Resumen de un vistazo</div>
+              <ul class="facts" style="margin-top:7px">
+                <li><span class="k">Talla</span><span>M los dos. Entre dos tallas, la pequeña.</span></li>
+                <li><span class="k">Tipo</span><span>Gravel o rígida. Doble suspensión nunca.</span></li>
+                <li><span class="k">Ruedas</span><span>29″ / 700c, neumático de 40-45 mm.</span></li>
+                <li><span class="k">Frenos</span><span>De disco. Hidráulicos o mecánicos, igual.</span></li>
+                <li><span class="k">Cambio</span><span>Monoplato si podéis. Deore/105/GX o mejor.</span></li>
+                <li><span class="k">Anclajes</span><span>Al menos en una de las dos.</span></li>
+                <li><span class="k">Dónde</span><span>Segunda mano, con la lista de la 20 en la mano.</span></li>
+              </ul>
+            </div>
+          </div>
+          <div>
+            <div class="tio">
+              <div class="tio__label">El padrino dice</div>
+              <div class="pendiente" style="border:0;background:none;padding:0">
+                <p>Pendiente · la línea de padrino. Borrador → "Y la del peque ya me la pido yo,
+                que para algo soy el padrino."</p>
+              </div>
+            </div>
+            <p class="sig" style="margin-top:22px">— Álex</p>
+            <p style="font-size:.76rem;color:var(--ink-3);margin-top:26px">
+              Precios y modelos comprobados en septiembre de 2026. Las bicis cambian de precio
+              y de catálogo cada temporada: usad las cifras como referencia, no como evangelio.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<!-- =========================================================
+     CRONOLOGÍA
+     ========================================================= -->
+<div class="timeline">
+  <div class="arrows">
+    <button class="arrow" id="prev" aria-label="Diapositiva anterior">←</button>
+    <button class="arrow" id="next" aria-label="Diapositiva siguiente">→</button>
+  </div>
+  <div class="cassette" id="cassette" role="group" aria-label="Progreso de la guía"></div>
+  <div class="counter" id="counter"></div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  var slides = Array.prototype.slice.call(document.querySelectorAll(".slide"));
+  var current = 0;
+
+  /* ---- localStorage tolerante a fallos ---- */
+  function lsGet(k){ try { return window.localStorage.getItem(k); } catch(e){ return null; } }
+  function lsSet(k,v){ try { window.localStorage.setItem(k,v); } catch(e){} }
+
+  /* =========================================================
+     Capítulos
+     ========================================================= */
+  var chapters = [];
+  slides.forEach(function(s, i){
+    var name = s.dataset.chap;
+    var last = chapters[chapters.length-1];
+    if(!last || last.name !== name){
+      chapters.push({ name:name, slides:[i] });
+    } else {
+      last.slides.push(i);
+    }
+  });
+  function chapterOf(i){
+    for(var c=0;c<chapters.length;c++){
+      if(chapters[c].slides.indexOf(i) !== -1) return c;
+    }
+    return 0;
+  }
+
+  /* =========================================================
+     Índice lateral
+     ========================================================= */
+  var railnav = document.getElementById("railnav");
+  chapters.forEach(function(ch, ci){
+    var wrap = document.createElement("div");
+    wrap.className = "chap";
+    wrap.dataset.chapIndex = String(ci);
+
+    var btn = document.createElement("button");
+    btn.className = "chap__btn";
+    btn.type = "button";
+    btn.innerHTML = '<span class="chap__num">' + String(ci+1).padStart(2,"0") + '</span><span>' + ch.name + '</span>';
+    btn.addEventListener("click", function(){ go(ch.slides[0]); });
+    wrap.appendChild(btn);
+
+    var dots = document.createElement("div");
+    dots.className = "chap__dots";
+    ch.slides.forEach(function(si){
+      var d = document.createElement("button");
+      d.className = "dot";
+      d.type = "button";
+      d.dataset.slide = String(si);
+      d.setAttribute("aria-label", slides[si].dataset.title);
+      d.title = slides[si].dataset.title;
+      d.addEventListener("click", function(){ go(si); });
+      dots.appendChild(d);
+    });
+    wrap.appendChild(dots);
+    railnav.appendChild(wrap);
+  });
+
+  /* =========================================================
+     Cronología (cassette)
+     ========================================================= */
+  var cassette = document.getElementById("cassette");
+  slides.forEach(function(s, i){
+    var cog = document.createElement("button");
+    cog.className = "cog";
+    cog.type = "button";
+    // Los piñones decrecen dentro de cada capítulo, como un cassette real
+    var ci = chapterOf(i);
+    var pos = chapters[ci].slides.indexOf(i);
+    var len = chapters[ci].slides.length;
+    cog.style.height = (26 - (pos/Math.max(len,1))*11) + "px";
+    cog.setAttribute("aria-label", slides[i].dataset.title);
+    cog.title = chapters[ci].name + " · " + slides[i].dataset.title;
+    cog.addEventListener("click", function(){ go(i); });
+    cassette.appendChild(cog);
+  });
+  var cogs = Array.prototype.slice.call(cassette.children);
+
+  /* =========================================================
+     Navegación
+     ========================================================= */
+  var counter = document.getElementById("counter");
+  var chapcount = document.getElementById("chapcount");
+  var prevBtn = document.getElementById("prev");
+  var nextBtn = document.getElementById("next");
+
+  function render(){
+    slides.forEach(function(s,i){ s.classList.toggle("is-current", i===current); });
+
+    var ci = chapterOf(current);
+    Array.prototype.forEach.call(railnav.children, function(el, i){
+      el.classList.toggle("is-active", i===ci);
+      Array.prototype.forEach.call(el.querySelectorAll(".dot"), function(d){
+        d.classList.toggle("is-on", Number(d.dataset.slide) === current);
+      });
+    });
+
+    cogs.forEach(function(c,i){
+      c.classList.toggle("is-on", i===current);
+      c.classList.toggle("is-done", i<current);
+    });
+
+    counter.textContent = slides[current].dataset.title + "  ·  " + (current+1) + "/" + slides.length;
+    chapcount.textContent = "Cap. " + (ci+1) + " de " + chapters.length;
+    prevBtn.disabled = current===0;
+    nextBtn.disabled = current===slides.length-1;
+
+    var body = slides[current].querySelector(".slide__body");
+    if(body) body.scrollTop = 0;
+    markOverflow();
+  }
+
+  /* Marca la diapositiva actual si su contenido no cabe, para mostrar el degradado */
+  function markOverflow(){
+    var s = slides[current];
+    var body = s.querySelector(".slide__body");
+    if(!body){ s.classList.remove("is-overflowing"); return; }
+    var hidden = body.scrollHeight - body.clientHeight;
+    var atEnd = body.scrollTop + body.clientHeight >= body.scrollHeight - 4;
+    s.classList.toggle("is-overflowing", hidden > 4 && !atEnd);
+  }
+  slides.forEach(function(s){
+    var body = s.querySelector(".slide__body");
+    if(body) body.addEventListener("scroll", markOverflow, {passive:true});
+  });
+  window.addEventListener("resize", markOverflow);
+
+  function go(i){
+    if(i<0 || i>=slides.length) return;
+    current = i;
+    if(history.replaceState){
+      history.replaceState(null, "", "#" + slides[i].id);
+    } else {
+      location.hash = slides[i].id;
+    }
+    render();
+    closeRail();
+  }
+  function step(d){ go(current + d); }
+
+  prevBtn.addEventListener("click", function(){ step(-1); });
+  nextBtn.addEventListener("click", function(){ step(1); });
+
+  document.addEventListener("keydown", function(e){
+    var t = e.target;
+    if(t && (t.tagName === "INPUT" || t.tagName === "TEXTAREA")) return;
+    if(e.key === "ArrowRight" || e.key === "PageDown"){ e.preventDefault(); step(1); }
+    else if(e.key === "ArrowLeft" || e.key === "PageUp"){ e.preventDefault(); step(-1); }
+    else if(e.key === "Home"){ e.preventDefault(); go(0); }
+    else if(e.key === "End"){ e.preventDefault(); go(slides.length-1); }
+  });
+
+  /* ---- swipe en móvil ---- */
+  var sx=0, sy=0, tracking=false;
+  document.addEventListener("touchstart", function(e){
+    if(e.touches.length!==1) return;
+    sx = e.touches[0].clientX; sy = e.touches[0].clientY; tracking = true;
+  }, {passive:true});
+  document.addEventListener("touchend", function(e){
+    if(!tracking) return;
+    tracking = false;
+    var t = e.changedTouches[0];
+    var dx = t.clientX - sx, dy = t.clientY - sy;
+    if(Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy)*1.6){
+      step(dx < 0 ? 1 : -1);
+    }
+  }, {passive:true});
+
+  /* =========================================================
+     Índice en móvil
+     ========================================================= */
+  var rail = document.getElementById("rail");
+  var railtoggle = document.getElementById("railtoggle");
+  var scrim = null;
+  function openRail(){
+    rail.classList.add("is-open");
+    railtoggle.setAttribute("aria-expanded","true");
+    if(!scrim){
+      scrim = document.createElement("div");
+      scrim.className = "scrim";
+      scrim.addEventListener("click", closeRail);
+      document.body.appendChild(scrim);
+    }
+  }
+  function closeRail(){
+    rail.classList.remove("is-open");
+    railtoggle.setAttribute("aria-expanded","false");
+    if(scrim){ scrim.remove(); scrim = null; }
+  }
+  railtoggle.addEventListener("click", function(){
+    if(rail.classList.contains("is-open")) closeRail(); else openRail();
+  });
+  document.addEventListener("keydown", function(e){
+    if(e.key === "Escape") closeRail();
+  });
+
+  /* =========================================================
+     Tema
+     ========================================================= */
+  var themebtn = document.getElementById("themebtn");
+  function currentIsDark(){
+    var t = document.documentElement.getAttribute("data-theme");
+    if(t === "dark") return true;
+    if(t === "light") return false;
+    return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+  }
+  function paintThemeBtn(){
+    themebtn.textContent = currentIsDark() ? "Modo claro" : "Modo oscuro";
+  }
+  var saved = lsGet("bici-theme");
+  if(saved === "dark" || saved === "light"){
+    document.documentElement.setAttribute("data-theme", saved);
+  }
+  paintThemeBtn();
+  themebtn.addEventListener("click", function(){
+    var next = currentIsDark() ? "light" : "dark";
+    document.documentElement.setAttribute("data-theme", next);
+    lsSet("bici-theme", next);
+    paintThemeBtn();
+  });
+
+  /* =========================================================
+     Comparador
+     ========================================================= */
+  var segBtns = document.querySelectorAll("[data-vs]");
+  Array.prototype.forEach.call(segBtns, function(b){
+    b.addEventListener("click", function(){
+      Array.prototype.forEach.call(segBtns, function(x){ x.classList.remove("is-on"); });
+      b.classList.add("is-on");
+      var keyOnly = b.dataset.vs === "key";
+      Array.prototype.forEach.call(document.querySelectorAll("#vs .vs__row"), function(r){
+        r.hidden = keyOnly && !r.classList.contains("is-key");
+      });
+    });
+  });
+
+  /* =========================================================
+     Calculadora de talla
+     ========================================================= */
+  var MTB = [
+    [0,   157, "XS", "13-14″"],
+    [157, 165, "S",  "15″"],
+    [165, 173, "M",  "17″"],
+    [173, 181, "L",  "19″"],
+    [181, 189, "XL", "21″"],
+    [189, 999, "XXL","23″"]
+  ];
+  var ROAD = [
+    [0,   157, "XXS", "47-49 cm"],
+    [157, 165, "XS",  "50-51 cm"],
+    [165, 173, "M",   "54-55 cm"],
+    [173, 180, "L",   "56-57 cm"],
+    [180, 187, "XL",  "58-59 cm"],
+    [187, 999, "XXL", "60-61 cm"]
+  ];
+  // Nota: entre 160 y 165 muchas marcas etiquetan "S" en gravel (52-53 cm)
+  ROAD.splice(2, 0, [160, 165, "S", "52-53 cm"]);
+  ROAD[1][1] = 160;
+
+  function band(table, h){
+    for(var i=0;i<table.length;i++){
+      if(h >= table[i][0] && h < table[i][1]) return table[i];
+    }
+    return table[table.length-1];
+  }
+
+  var elAltura = document.getElementById("altura");
+  var elEntre  = document.getElementById("entrepierna");
+  var elMtb    = document.getElementById("r-mtb");
+  var elGravel = document.getElementById("r-gravel");
+  var elSillin = document.getElementById("r-sillin");
+  var rowSillin= document.getElementById("row-sillin");
+  var elNota   = document.getElementById("r-nota");
+
+  function calc(){
+    var h = parseFloat(elAltura.value);
+    if(!isFinite(h) || h < 130 || h > 215){
+      elMtb.textContent = "—";
+      elGravel.textContent = "—";
+      rowSillin.hidden = true;
+      elNota.textContent = "Escribid una altura entre 130 y 215 cm.";
+      return;
+    }
+    var m = band(MTB, h), r = band(ROAD, h);
+    elMtb.textContent = m[2] + " · " + m[3];
+    elGravel.textContent = r[2] + " · " + r[3];
+
+    var e = parseFloat(elEntre.value);
+    if(isFinite(e) && e >= 55 && e <= 110){
+      elSillin.textContent = (e * 0.885).toFixed(1) + " cm";
+      rowSillin.hidden = false;
+    } else {
+      rowSillin.hidden = true;
+    }
+
+    // ¿Está cerca del borde entre dos tallas?
+    var margen = Math.min(h - m[0], m[1] - h);
+    if(margen <= 2){
+      elNota.textContent = "Estáis justo en el borde entre dos tallas. En ese caso, coged la más pequeña: una bici pequeña se agranda con el sillín y la potencia, una grande no se encoge.";
+    } else if(h >= 168 && h <= 175){
+      elNota.textContent = "Talla M limpia, en los dos mundos. Es la más fabricada y la más fácil de encontrar de segunda mano: tenéis mucho donde elegir.";
+    } else {
+      elNota.textContent = "Usadlo para descartar anuncios de un vistazo. Antes de pagar, probadla igualmente: de pie a horcajadas os tiene que quedar aire en la entrepierna.";
+    }
+  }
+  elAltura.addEventListener("input", calc);
+  elEntre.addEventListener("input", calc);
+  calc();
+
+  /* =========================================================
+     Checklist
+     ========================================================= */
+  var boxes = document.querySelectorAll("#check input[type=checkbox]");
+  Array.prototype.forEach.call(boxes, function(b){
+    var key = "bici-ck-" + b.dataset.ck;
+    if(lsGet(key) === "1") b.checked = true;
+    b.addEventListener("change", function(){
+      lsSet(key, b.checked ? "1" : "0");
+    });
+  });
+  document.getElementById("resetbtn").addEventListener("click", function(){
+    Array.prototype.forEach.call(boxes, function(b){
+      b.checked = false;
+      lsSet("bici-ck-" + b.dataset.ck, "0");
+    });
+  });
+  document.getElementById("printbtn").addEventListener("click", function(){
+    window.print();
+  });
+
+  /* =========================================================
+     Arranque
+     ========================================================= */
+  function fromHash(){
+    var id = (location.hash || "").replace("#","");
+    if(!id) return 0;
+    for(var i=0;i<slides.length;i++){ if(slides[i].id === id) return i; }
+    return 0;
+  }
+  current = fromHash();
+  render();
+  window.addEventListener("hashchange", function(){
+    var i = fromHash();
+    if(i !== current){ current = i; render(); }
+  });
+})();
+</script>
+</body>
+</html>
