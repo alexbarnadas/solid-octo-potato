@@ -439,11 +439,29 @@ svg{display:block;max-width:100%;height:auto}
 .cover{display:grid;align-content:center;gap:22px;max-width:60ch;height:100%}
 .cover h1{font-size:clamp(2.3rem,6vw,4.6rem);letter-spacing:-.03em;line-height:.98}
 .cover h1 em{font-style:italic;color:var(--accent)}
+.carta{max-width:54ch;display:grid;gap:11px}
+.carta p{font-size:clamp(1rem,1.35vw,1.16rem);color:var(--ink-2)}
+.carta p:first-child{color:var(--ink)}
+.carta .sig{margin-top:7px}
 .cover__meta{
   font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3);
   display:flex;gap:16px;flex-wrap:wrap;
 }
 .sig{font-family:var(--serif);font-style:italic;font-size:1.1rem;color:var(--accent-ink)}
+
+/* Pantallas de portátil: sube la densidad para que las diapositivas sigan cabiendo */
+@media (max-height: 900px){
+  .slide{gap:clamp(10px,1.6vh,18px);padding-top:clamp(16px,2.2vh,30px)}
+  .lede{margin-top:8px}
+  .card{padding:clamp(11px,1.2vw,16px)}
+  .card h3{font-size:1rem}
+  .facts{gap:8px}
+  .facts li{font-size:.89rem}
+  .tio{padding:12px 16px}
+  .callout{padding:11px 14px}
+  th,td{padding:7px 10px}
+  .check__item{padding:8px 11px}
+}
 
 /* ============================================================
    RESPONSIVE
@@ -559,16 +577,18 @@ svg{display:block;max-width:100%;height:auto}
           <div class="eyebrow">Septiembre de 2026</div>
           <h1>Dos bicis,<br>un presupuesto<br>y <em>ninguna prisa</em></h1>
         </div>
-        <div class="pendiente">
-          <div class="pendiente__label">Pendiente · carta de apertura de Álex</div>
-          <p>Aquí va tu carta de entrada firmada. Te traeré 2-3 versiones para elegir: la idea
-          es arrancar con las excursiones con papá y aterrizar en "esto es lo mismo, pero con
-          frenos que funcionan".</p>
+        <div class="carta">
+          <p>Ahora mismo tenéis un bebé de meses y menos tiempo libre del que habéis tenido
+          nunca. Y justo ahora os queréis comprar dos bicis.</p>
+          <p>Me parece la mejor idea que habéis tenido en mucho tiempo.</p>
+          <p>Así que me he puesto a ordenar todo lo que hay que mirar, para que el poco rato
+          que tengáis lo gastéis pedaleando y no arrepintiéndoos.</p>
+          <p class="sig">— Álex</p>
         </div>
         <div class="cover__meta">
           <span>700 € por bici</span>
           <span>Pistas y caminos</span>
-          <span>22 diapositivas</span>
+          <span id="slidecount">23 diapositivas</span>
         </div>
       </div>
     </section>
@@ -741,10 +761,11 @@ svg{display:block;max-width:100%;height:auto}
             </div>
             <div class="tio" style="margin-top:14px">
               <div class="tio__label">El tío dice</div>
-              <div class="pendiente" style="border:0;background:none;padding:0">
-                <p>Pendiente. Aquí es donde empujas tú, que es la sección que querías que
-                conociera. Te traeré 3 versiones: una suave, una convencida y una descarada.</p>
-              </div>
+              <p>En la práctica, una gravel hace bien tres cosas que una BTT hace regular:
+              rodar por asfalto, mantener la velocidad en pista, y llevar peso.</p>
+              <p>Y hace regular una cosa que la BTT hace bien: bajar por sendero con piedras
+              sueltas.</p>
+              <p>Vuestra ruta tiene mucho de lo primero y casi nada de lo segundo.</p>
             </div>
           </div>
         </div>
@@ -806,6 +827,46 @@ svg{display:block;max-width:100%;height:auto}
             <div class="vs__cell"><span class="pips"><i class="pip is-on"></i><i class="pip is-on"></i><i class="pip is-on"></i></span>Nueva, fácil</div>
             <div class="vs__cell"><span class="pips"><i class="pip is-on"></i><i class="pip is-on"></i><i class="pip"></i></span>Nueva no; de 2ª mano sí</div>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="quien-lleva-que" data-chap="Los tres mundos" data-title="Quién lleva qué">
+      <div class="slide__head">
+        <div class="eyebrow">Gente de verdad, no categorías</div>
+        <h2>Y esto es <em>quién lleva cada una</em></h2>
+        <p class="lede">Las tres diapositivas anteriores son teoría. Esto no: es gente que
+        conocéis, con su bici y con lo que hace de verdad con ella. Mirad a quién os parecéis.</p>
+      </div>
+      <div class="slide__body">
+        <div class="cols cols--3">
+          <article class="card">
+            <div class="eyebrow">BTT</div>
+            <div class="pendiente" style="margin-top:9px">
+              <div class="pendiente__label">Pendiente · quién de los vuestros</div>
+              <p>Nombre, qué bici lleva y qué hace con ella. Una línea me sobra.</p>
+            </div>
+          </article>
+          <article class="card" style="border-color:var(--accent)">
+            <div class="eyebrow">Gravel</div>
+            <div class="pendiente" style="margin-top:9px">
+              <div class="pendiente__label">Pendiente · quién de los vuestros</div>
+              <p>Si conocéis a alguien con gravel, este es el ejemplo más útil de los tres.</p>
+            </div>
+          </article>
+          <article class="card">
+            <div class="eyebrow">Carretera</div>
+            <div class="pendiente" style="margin-top:9px">
+              <div class="pendiente__label">Pendiente · quién de los vuestros</div>
+              <p>Sirve de contraste: para ver qué NO vais a hacer vosotros.</p>
+            </div>
+          </article>
+        </div>
+        <div class="callout" style="margin-top:14px">
+          <div class="callout__label">Por qué esto importa más que cualquier tabla</div>
+          <p style="font-size:.92rem;color:var(--ink-2)">Una categoría no dice nada. Ver que
+          alguien a quien conocéis sale cada domingo con una bici concreta, y saber adónde va
+          con ella, sí. Buscad de quién queréis copiar el plan.</p>
         </div>
       </div>
     </section>
@@ -950,16 +1011,38 @@ svg{display:block;max-width:100%;height:auto}
             </ul>
           </div>
         </div>
-        <details>
-          <summary>Las jerarquías de Shimano y SRAM, sin marearse</summary>
-          <p>Cada fabricante tiene una escalera de gamas. De abajo arriba, lo que os podéis encontrar:</p>
-          <p><strong>Shimano BTT:</strong> Tourney → Altus → Acera → Alivio → <strong>Deore</strong> → SLX → XT → XTR.<br>
-          <strong>Shimano gravel/carretera:</strong> Claris → Sora → Tiagra → <strong>105</strong> → GRX → Ultegra.<br>
-          <strong>SRAM BTT:</strong> SX → NX → <strong>GX</strong> → X01 → XX1.</p>
-          <p><strong>La regla práctica:</strong> de <em>Deore</em> / <em>105</em> / <em>GX</em> hacia
-          arriba, todo funciona muy bien y dura. Por debajo, funciona pero se nota y se gasta antes.
-          Una bici de segunda mano con Deore por 700 € es mucho mejor compra que una nueva con Altus.</p>
-        </details>
+        <div class="callout" style="margin-top:14px;border-style:solid;border-color:var(--accent)">
+          <div class="callout__label" style="color:var(--accent-ink)">La línea de corte: de aquí hacia arriba, todo va bien</div>
+          <div class="tablewrap">
+            <table>
+              <thead>
+                <tr><th>Fabricante</th><th>Funciona, pero se nota y se gasta antes</th><th>Va muy bien y dura años</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Shimano BTT</strong></td>
+                  <td>Tourney · Altus · Acera · Alivio</td>
+                  <td><strong style="color:var(--accent-ink)">Deore</strong> · SLX · XT · XTR</td>
+                </tr>
+                <tr>
+                  <td><strong>Shimano gravel</strong></td>
+                  <td>Claris · Sora · Tiagra</td>
+                  <td><strong style="color:var(--accent-ink)">105</strong> · GRX · Ultegra</td>
+                </tr>
+                <tr>
+                  <td><strong>SRAM BTT</strong></td>
+                  <td>SX · NX</td>
+                  <td><strong style="color:var(--accent-ink)">GX</strong> · X01 · XX1</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p style="font-size:.92rem;color:var(--ink-2);margin-top:10px">
+            Es la comprobación más rentable que podéis hacer en un anuncio: buscad el nombre del
+            cambio en la descripción o en las fotos. <strong>Una bici de segunda mano con Deore por
+            700 € es mejor compra que una nueva con Altus</strong>, y esa frase sola os ahorra horas.
+          </p>
+        </div>
       </div>
     </section>
 
@@ -1077,13 +1160,13 @@ svg{display:block;max-width:100%;height:auto}
             </ul>
           </div>
         </div>
-        <div class="tio" style="margin-top:16px">
+        <div class="tio" style="margin-top:10px">
           <div class="tio__label">El tío dice</div>
-          <div class="pendiente" style="border:0;background:none;padding:0">
-            <p>Pendiente — <strong>y esta es la caja más importante de la guía</strong>, porque
-            enlaza el peso con la segunda mano. Tu idea: por 700 € nuevos no hay carbono ni bici
-            ligera; por 700 € de segunda mano sí. Te traeré 3 versiones.</p>
-          </div>
+          <p>Aquí está el truco de toda la guía.</p>
+          <p>Por 700 € nuevos no hay carbono, no hay bici ligera y no hay componentes buenos.
+          No es que no busquéis bien: <strong>es que no existe</strong>.</p>
+          <p>Por 700 € de segunda mano hay las tres cosas. La misma cifra, comprada en otro
+          sitio, os compra una bici completamente distinta.</p>
         </div>
       </div>
     </section>
@@ -1501,10 +1584,12 @@ svg{display:block;max-width:100%;height:auto}
       <div class="slide__body">
         <div class="cols cols--2">
           <div>
-            <div class="pendiente">
-              <div class="pendiente__label">Pendiente · carta de cierre de Álex</div>
-              <p>Tu recomendación final, sin ambigüedades: qué comprarías tú si fuera tu dinero.
-              Y el guiño de padrino al final — una línea, como pediste.</p>
+            <div class="carta">
+              <p>No busquéis la bici perfecta. No existe, y buscarla es la mejor manera de no
+              comprar ninguna.</p>
+              <p>Buscad una que os quepa, que frene, que pese poco y que os deje llevar al
+              peque. Con eso ya habéis acertado.</p>
+              <p><strong>La bici correcta es la que acabáis usando.</strong></p>
             </div>
             <div class="callout" style="margin-top:14px">
               <div class="callout__label">Resumen de un vistazo</div>
@@ -1896,6 +1981,9 @@ svg{display:block;max-width:100%;height:auto}
     for(var i=0;i<slides.length;i++){ if(slides[i].id === id) return i; }
     return 0;
   }
+  var sc = document.getElementById("slidecount");
+  if(sc) sc.textContent = slides.length + " diapositivas";
+
   current = fromHash();
   render();
   window.addEventListener("hashchange", function(){
